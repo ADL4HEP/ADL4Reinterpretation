@@ -1,13 +1,10 @@
-#info analysis
+# info analysis
 #  title "Search for new physics in multijet events with at least one photon and large missing transverse momentum in proton-proton collisions at 13 TeV"
 #  experiment CMS
 #  id SUS-21-009
-#  publication ...
 #  sqrtS 13.0
 #  lumi 137
-#  arXiv ...
-#  hepdata ...
-#  doi ...
+#  arXiv 2307.16216 
 
 #info adl
 #  adlauthor Sezen Sekmen
