@@ -13,14 +13,17 @@
 # -----------------------------------------------------------------------------
 
 tool:
-  name: CutLang
+  name: ADL/CutLang
   # Current CutLang release. Verified against the unelg/CutLang repository:
   # VERSION file = 2.15.1, latest tag = v2.15.1, HEAD = 2026-08-25.
   # Bump whenever CutLang makes a new release.
   version: "2.15.1"
+  # Says explicitly that these are simplified, Delphes-level implementations,
+  # so they cannot be confused with experiment-format ADLs published later.
   implementations_description: >-
-    ADL (Analysis Description Language) implementation, executable directly on
-    events by the CutLang runtime interpreter
+    ADL (Analysis Description Language) implementation for simplified,
+    Delphes-level detector simulation, executable directly on events by the
+    CutLang runtime interpreter
 
 repository:
   owner: ADL4HEP

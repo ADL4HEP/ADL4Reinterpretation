@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0.0",
-  "tool": "CutLang",
+  "tool": "ADL/CutLang",
   "version": "2.15.1",
-  "date_created": "2026-09-18T09:10:39+00:00",
-  "implementations_description": "ADL (Analysis Description Language) implementation, executable directly on events by the CutLang runtime interpreter",
+  "date_created": "2026-09-18T11:11:34+00:00",
+  "implementations_description": "ADL (Analysis Description Language) implementation for simplified, Delphes-level detector simulation, executable directly on events by the CutLang runtime interpreter",
   "link_types": [
     "main_url",
     "val_url",

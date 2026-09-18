@@ -53,7 +53,7 @@ Other options: `--check` (exit 1 if `analyses.json` is stale, used by CI),
 
 Title, experiment, arXiv number and DOI come from the `info analysis` block of
 the ADL file, so the ADL stays the single source of truth. `analyses_meta.yml`
-supplies: INSPIRE ID, signature type, pretty name, and
+supplies only what the ADL cannot: INSPIRE ID, signature type, pretty name, and
 overrides where an ADL header is incomplete or paraphrased.
 
 Files ending in `_Cutflow`, `_results` or `_signals` are treated as auxiliary and
@@ -64,3 +64,7 @@ URLs are built from two templates: `main_url` points at the individual `.adl`
 file on `main`, `val_url` at the analysis folder on the `validation` branch.
 
 `tool.version` in `analyses_meta.yml` is the current CutLang release. 
+
+All implementations here are written for simplified, Delphes-level detector
+simulation.
+
