@@ -63,5 +63,4 @@ are not listed as separate implementations. The suffix list is in
 URLs are built from two templates: `main_url` points at the individual `.adl`
 file on `main`, `val_url` at the analysis folder on the `validation` branch.
 
-`tool.version` in `analyses_meta.yml` is the current CutLang release. Bump it
-when CutLang makes a new one.
+`tool.version` in `analyses_meta.yml` is the current CutLang release. 
