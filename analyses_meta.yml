@@ -1,0 +1,86 @@
+# -----------------------------------------------------------------------------
+# Hand-maintained metadata for the HEPData "analyses.json" file of ADL/CutLang.
+#
+# Everything that CAN be read out of the .adl files themselves (title,
+# experiment, arXiv number, DOI, publication) is read by make_analyses_json.py.
+# Only what the ADL files do NOT carry lives here.
+#
+# When you add a new analysis to ADL4Reinterpretation:
+#   1. add a block under `analyses:` keyed by the directory name
+#   2. leave `inspire_id:` empty -- the script resolves it from the arXiv number
+#      via the INSPIRE API and writes it back into this file
+#   3. re-run `python3 make_analyses_json.py`
+# -----------------------------------------------------------------------------
+
+tool:
+  name: CutLang
+  # Current CutLang release. Verified against the unelg/CutLang repository:
+  # VERSION file = 2.15.1, latest tag = v2.15.1, HEAD = 2026-08-25.
+  # Bump whenever CutLang makes a new release.
+  version: "2.15.1"
+  implementations_description: >-
+    ADL (Analysis Description Language) implementation, executable directly on
+    events by the CutLang runtime interpreter
+
+repository:
+  owner: ADL4HEP
+  name: ADL4Reinterpretation
+  main_branch: main
+  validation_branch: validation
+
+# The repository currently ships no LICENSE file. The HEPData schema assumes
+# CC0 when `implementations_license` is absent; we state CC-BY-4.0 explicitly
+# because that is what the rest of the reinterpretation ecosystem (SModelS,
+# MadAnalysis PAD) uses. >>> Add a matching LICENSE file to the repo. <<<
+license:
+  name: cc-by-4.0
+  url: https://creativecommons.org/licenses/by/4.0
+
+# Files whose names end in any of these suffixes are auxiliary (cutflow
+# validation variants, published-count tables, signal-count tables) and are not
+# listed as separate implementations.
+auxiliary_suffixes:
+  - _Cutflow
+  - _results
+  - _signals
+
+analyses:
+
+  ATLAS-SUSY-2018-10:
+    inspire_id: 1839446
+    # ADL title is missing a comma vs the published one; use the published form.
+    title: "Search for squarks and gluinos in final states with one isolated lepton, jets, and missing transverse momentum at sqrt(s) = 13 TeV with the ATLAS detector"
+    signature_type: prompt
+    pretty_name: 1 lepton + jets + MET
+    # The ADL file carries the arXiv number and DOI already.
+
+  ATLAS-SUSY-2018-30:
+    inspire_id: 2182381
+    signature_type: prompt
+    pretty_name: "MET + >=3 b-jets (NN-based SRs)"
+    notes: >-
+      Signal regions use a neural network evaluated at runtime through the ADL
+      OME() function on ANA-SUSY-2018-30_model.onnx, shipped alongside the ADL.
+
+  CMS-SUS-19-006:
+    inspire_id: 1749379
+    signature_type: prompt
+    pretty_name: 0 lepton + jets + MHT
+
+  CMS-SUS-21-006:
+    inspire_id: 2705044
+    signature_type: displaced
+    pretty_name: disappearing tracks
+    # The ADL header of this analysis has no arXiv/DOI line yet, so supply them
+    # here. Please also add them to the .adl `info analysis` block.
+    arxiv_id: "2309.16823"
+    publication_doi: 10.1103/PhysRevD.109.072007
+    # The ADL header carries a paraphrase, not the published title. Override
+    # here and please also correct the .adl file.
+    title: "Search for supersymmetry in final states with disappearing tracks in proton-proton collisions at sqrt(s) = 13 TeV"
+
+  CMS-SUS-21-009:
+    inspire_id: 2683599
+    signature_type: prompt
+    pretty_name: ">=1 photon + multijet + MET"
+    publication_doi: 10.1007/JHEP10(2023)046

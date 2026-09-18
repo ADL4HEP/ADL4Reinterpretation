@@ -1,0 +1,66 @@
+# .github/workflows/analyses-json.yml
+#
+# Keeps analyses.json in sync with the ADL files in this repository, so the URL
+# HEPData polls is always current:
+#
+#   https://raw.githubusercontent.com/ADL4HEP/ADL4Reinterpretation/main/analyses.json
+#
+# On a pull request the file is only checked; on a push to main it is
+# regenerated and committed if it changed.
+
+name: analyses.json
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**/*.adl"
+      - "analyses_meta.yml"
+      - "make_analyses_json.py"
+      - ".github/workflows/analyses-json.yml"
+  pull_request:
+    paths:
+      - "**/*.adl"
+      - "analyses_meta.yml"
+      - "make_analyses_json.py"
+  workflow_dispatch:
+  schedule:
+    # monthly, so a newly assigned INSPIRE ID gets picked up without a push
+    - cron: "0 5 1 * *"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install pyyaml jsonschema
+
+      - name: Check (pull requests)
+        if: github.event_name == 'pull_request'
+        run: python3 make_analyses_json.py --check
+
+      - name: Regenerate
+        if: github.event_name != 'pull_request'
+        run: python3 make_analyses_json.py
+
+      - name: Commit if changed
+        if: github.event_name != 'pull_request'
+        run: |
+          if [ -n "$(git status --porcelain analyses.json analyses_meta.yml)" ]; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add analyses.json analyses_meta.yml
+            git commit -m "chore: regenerate analyses.json"
+            git push
+          else
+            echo "analyses.json already up to date"
+          fi

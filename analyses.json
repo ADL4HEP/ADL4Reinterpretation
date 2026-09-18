@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "tool": "CutLang",
+  "version": "2.15.1",
+  "date_created": "2026-09-18T08:35:29+00:00",
+  "implementations_description": "ADL (Analysis Description Language) implementation, executable directly on events by the CutLang runtime interpreter",
+  "link_types": [
+    "main_url",
+    "val_url",
+    "publication",
+    "arXiv"
+  ],
+  "url_templates": {
+    "main_url": "https://github.com/ADL4HEP/ADL4Reinterpretation/blob/main/{path}/{name}.adl",
+    "val_url": "https://github.com/ADL4HEP/ADL4Reinterpretation/tree/validation/{path}",
+    "publication": "https://doi.org/{publication_doi}",
+    "arXiv": "https://arxiv.org/abs/{arXiv_id}"
+  },
+  "analyses": [
+    {
+      "inspire_id": 1839446,
+      "ana_id": "ATLAS-SUSY-2018-10",
+      "implementations": [
+        {
+          "name": "ATLAS-SUSY-2018-10_Delphes",
+          "path": "ATLAS-SUSY-2018-10"
+        }
+      ],
+      "pretty_name": "1 lepton + jets + MET",
+      "signature_type": "prompt",
+      "publication_doi": "10.1140/epjc/s10052-021-09344-w",
+      "arXiv_id": "2101.01629",
+      "title": "Search for squarks and gluinos in final states with one isolated lepton, jets, and missing transverse momentum at sqrt(s) = 13 TeV with the ATLAS detector",
+      "experiment": "ATLAS"
+    },
+    {
+      "inspire_id": 2182381,
+      "ana_id": "ATLAS-SUSY-2018-30",
+      "implementations": [
+        {
+          "name": "ATLAS-SUSY-2018-30_NNGbb_Delphes",
+          "path": "ATLAS-SUSY-2018-30"
+        },
+        {
+          "name": "ATLAS-SUSY-2018-30_NNGtt_Delphes",
+          "path": "ATLAS-SUSY-2018-30"
+        }
+      ],
+      "pretty_name": "MET + >=3 b-jets (NN-based SRs)",
+      "signature_type": "prompt",
+      "publication_doi": "10.1140/epjc/s10052-023-11543-6",
+      "arXiv_id": "2211.08028",
+      "title": "Search for supersymmetry in final states with missing transverse momentum and three or more b-jets in 139 fb−1 of proton–proton collisions at √s = 13 TeV with the ATLAS detector",
+      "experiment": "ATLAS"
+    },
+    {
+      "inspire_id": 1749379,
+      "ana_id": "CMS-SUS-19-006",
+      "implementations": [
+        {
+          "name": "CMS-SUS-19-006_CutLang",
+          "path": "CMS-SUS-19-006"
+        }
+      ],
+      "pretty_name": "0 lepton + jets + MHT",
+      "signature_type": "prompt",
+      "publication_doi": "10.1007/JHEP10(2019)244",
+      "arXiv_id": "1908.04722",
+      "title": "Search for supersymmetry in proton-proton collisions at 13 TeV in final states with jets and missing transverse momentum",
+      "experiment": "CMS"
+    },
+    {
+      "inspire_id": 2705044,
+      "ana_id": "CMS-SUS-21-006",
+      "implementations": [
+        {
+          "name": "CMS-SUS-21-006_Delphes",
+          "path": "CMS-SUS-21-006"
+        }
+      ],
+      "pretty_name": "disappearing tracks",
+      "signature_type": "displaced",
+      "publication_doi": "10.1103/PhysRevD.109.072007",
+      "arXiv_id": "2309.16823",
+      "title": "Search for supersymmetry in final states with disappearing tracks in proton-proton collisions at sqrt(s) = 13 TeV",
+      "experiment": "CMS"
+    },
+    {
+      "inspire_id": 2683599,
+      "ana_id": "CMS-SUS-21-009",
+      "implementations": [
+        {
+          "name": "CMS-SUS-21-009_Delphes",
+          "path": "CMS-SUS-21-009"
+        }
+      ],
+      "pretty_name": ">=1 photon + multijet + MET",
+      "signature_type": "prompt",
+      "publication_doi": "10.1007/JHEP10(2023)046",
+      "arXiv_id": "2307.16216",
+      "title": "Search for new physics in multijet events with at least one photon and large missing transverse momentum in proton-proton collisions at 13 TeV",
+      "experiment": "CMS"
+    }
+  ],
+  "implementations_license": {
+    "name": "cc-by-4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0"
+  }
+}
