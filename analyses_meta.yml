@@ -21,9 +21,9 @@ tool:
   # Says explicitly that these are simplified, Delphes-level implementations,
   # so they cannot be confused with experiment-format ADLs published later.
   implementations_description: >-
-    ADL (Analysis Description Language) implementation for simplified,
-    Delphes-level detector simulation, executable directly on events by the
-    CutLang runtime interpreter
+    Simplified implementation in ADL (Analysis Description Language) for event
+    input in the Delphes detector simulation format. Directly executable on
+    Delphes events with the CutLang runtime interpreter.
 
 repository:
   owner: ADL4HEP
