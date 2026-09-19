@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "tool": "ADL/CutLang",
   "version": "2.15.1",
-  "date_created": "2026-09-19T05:39:19+00:00",
+  "date_created": "2026-09-19T05:42:26+00:00",
   "implementations_description": "Simplified implementation in ADL (Analysis Description Language) for event input in the Delphes detector simulation format. Directly executable on Delphes events with the CutLang runtime interpreter.",
   "link_types": [
     "main_url",
