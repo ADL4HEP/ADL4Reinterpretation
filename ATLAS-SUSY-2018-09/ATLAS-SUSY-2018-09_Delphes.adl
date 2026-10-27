@@ -1,0 +1,194 @@
+# Simplified analysis ADL for ATLAS-SUSY-2018-09, for event input in the Delphes format.
+# Runs with CutLang, and is also the input of CutLang-Overlap-Analyzer (static overlap
+# of signal regions), the names of regions and objects carry an analysis prefix so that several analyses can be compared in one run.
+
+
+#info analysis
+#  experiment ATLAS
+#  title "Search for squarks and gluinos in final states with same-sign leptons and jets using 139 fb-1 of data collected with the ATLAS detector"
+#  id ATLAS-SUSY-2018-09
+#  publication JHEP 06 (2020) 046
+#  sqrtS 13.0
+#  lumi 139
+#  arXiv 1909.08457
+#  doi https://doi.org/10.1007/JHEP06(2020)046
+
+object s1809jets20
+  take JET
+  select pT(JET) > 20
+  select abs(eta(JET)) < 2.8
+
+object s1809eleRaw
+  take ELE
+  select pT(ELE) > 10
+  select abs(eta(ELE)) < 2.47
+
+object s1809muoRaw
+  take MUO
+  select pT(MUO) > 10
+  select abs(eta(MUO)) < 2.5
+
+object s1809bJetsOR
+  take s1809jets20
+  select BTag(s1809jets20) == 1
+  select abs(eta(s1809jets20)) < 2.5
+
+object s1809eleForJetOR
+  take s1809eleRaw
+  select dR(s1809eleRaw, allof(s1809bJetsOR)) > 0.2
+
+object s1809jetsNoE
+  take s1809jets20
+  select dR(s1809jets20, allof(s1809eleForJetOR)) > 0.2
+
+object s1809baseEle
+  take s1809eleRaw
+  select dR(s1809eleRaw, allof(s1809jetsNoE)) >= min(0.4, 0.1 + 9.6 / pT(s1809eleRaw))
+
+object s1809baseMuo
+  take s1809muoRaw
+  select dR(s1809muoRaw, allof(s1809jetsNoE)) < 0.2 or dR(s1809muoRaw, allof(s1809jetsNoE)) >= min(0.4, 0.1 + 9.6 / pT(s1809muoRaw))
+
+object s1809cleanJets
+  take s1809jetsNoE
+  select dR(s1809jetsNoE, allof(s1809baseMuo)) > 0.2
+
+object s1809sigEle
+  take s1809baseEle
+  select abs(eta(s1809baseEle)) < 2.0
+
+object s1809sigLeptons : Union(s1809sigEle, s1809baseMuo)
+
+object s1809lep20
+  take s1809sigLeptons
+  select pT(s1809sigLeptons) > 20
+
+object s1809lepPos
+  take s1809sigLeptons
+  select q(s1809sigLeptons) > 0
+
+object s1809lepNeg
+  take s1809sigLeptons
+  select q(s1809sigLeptons) < 0
+
+object s1809elePos
+  take s1809sigEle
+  select q(s1809sigEle) > 0
+
+object s1809eleNeg
+  take s1809sigEle
+  select q(s1809sigEle) < 0
+
+object s1809bJets
+  take s1809cleanJets
+  select BTag(s1809cleanJets) == 1
+  select abs(eta(s1809cleanJets)) < 2.5
+
+object s1809jets25
+  take s1809cleanJets
+  select pT(s1809cleanJets) > 25
+
+object s1809jets40
+  take s1809cleanJets
+  select pT(s1809cleanJets) > 40
+
+define vMeff = fHT(s1809cleanJets) + fHT(s1809sigLeptons) + MET
+
+region s1809Rpv2L
+  histo hns1809eleRaw , "n s1809eleRaw", 20, 0, 20, size(s1809eleRaw)
+  histo hns1809muoRaw , "n s1809muoRaw", 20, 0, 20, size(s1809muoRaw)
+  histo hns1809bJetsOR , "n s1809bJetsOR", 20, 0, 20, size(s1809bJetsOR)
+  histo hns1809eleForJetOR , "n s1809eleForJetOR", 20, 0, 20, size(s1809eleForJetOR)
+  histo hns1809jetsNoE , "n s1809jetsNoE", 20, 0, 20, size(s1809jetsNoE)
+  histo hns1809baseEle , "n s1809baseEle", 20, 0, 20, size(s1809baseEle)
+  histo hns1809baseMuo , "n s1809baseMuo", 20, 0, 20, size(s1809baseMuo)
+  histo hns1809cleanJets , "n s1809cleanJets", 20, 0, 20, size(s1809cleanJets)
+  histo hns1809sigEle , "n s1809sigEle", 20, 0, 20, size(s1809sigEle)
+  histo hns1809elePos , "n s1809elePos", 20, 0, 20, size(s1809elePos)
+  histo hns1809eleNeg , "n s1809eleNeg", 20, 0, 20, size(s1809eleNeg)
+  select size(s1809lep20) >= 2
+  select size(s1809jets40) >= 6
+  select size(s1809lepPos) >= 2 or size(s1809lepNeg) >= 2
+  select vMeff > 2600
+
+region s1809Rpc2L0b
+  histo hns1809eleRaw , "n s1809eleRaw", 20, 0, 20, size(s1809eleRaw)
+  histo hns1809muoRaw , "n s1809muoRaw", 20, 0, 20, size(s1809muoRaw)
+  histo hns1809bJetsOR , "n s1809bJetsOR", 20, 0, 20, size(s1809bJetsOR)
+  histo hns1809eleForJetOR , "n s1809eleForJetOR", 20, 0, 20, size(s1809eleForJetOR)
+  histo hns1809jetsNoE , "n s1809jetsNoE", 20, 0, 20, size(s1809jetsNoE)
+  histo hns1809baseEle , "n s1809baseEle", 20, 0, 20, size(s1809baseEle)
+  histo hns1809baseMuo , "n s1809baseMuo", 20, 0, 20, size(s1809baseMuo)
+  histo hns1809cleanJets , "n s1809cleanJets", 20, 0, 20, size(s1809cleanJets)
+  histo hns1809sigEle , "n s1809sigEle", 20, 0, 20, size(s1809sigEle)
+  histo hns1809elePos , "n s1809elePos", 20, 0, 20, size(s1809elePos)
+  histo hns1809eleNeg , "n s1809eleNeg", 20, 0, 20, size(s1809eleNeg)
+  select size(s1809lep20) >= 2
+  select size(s1809jets40) >= 6
+  select size(s1809lepPos) >= 2 or size(s1809lepNeg) >= 2
+  select size(s1809bJets) == 0
+  select MET > 200
+  select vMeff > 1000
+  select MET / vMeff > 0.2
+
+region s1809Rpc2L1b
+  histo hns1809eleRaw , "n s1809eleRaw", 20, 0, 20, size(s1809eleRaw)
+  histo hns1809muoRaw , "n s1809muoRaw", 20, 0, 20, size(s1809muoRaw)
+  histo hns1809bJetsOR , "n s1809bJetsOR", 20, 0, 20, size(s1809bJetsOR)
+  histo hns1809eleForJetOR , "n s1809eleForJetOR", 20, 0, 20, size(s1809eleForJetOR)
+  histo hns1809jetsNoE , "n s1809jetsNoE", 20, 0, 20, size(s1809jetsNoE)
+  histo hns1809baseEle , "n s1809baseEle", 20, 0, 20, size(s1809baseEle)
+  histo hns1809baseMuo , "n s1809baseMuo", 20, 0, 20, size(s1809baseMuo)
+  histo hns1809cleanJets , "n s1809cleanJets", 20, 0, 20, size(s1809cleanJets)
+  histo hns1809sigEle , "n s1809sigEle", 20, 0, 20, size(s1809sigEle)
+  histo hns1809elePos , "n s1809elePos", 20, 0, 20, size(s1809elePos)
+  histo hns1809eleNeg , "n s1809eleNeg", 20, 0, 20, size(s1809eleNeg)
+  select size(s1809lep20) >= 2
+  select size(s1809bJets) >= 1
+  select size(s1809jets40) >= 6
+  select size(s1809lepPos) >= 2 or size(s1809lepNeg) >= 2
+  select MET / vMeff > 0.25
+
+region s1809Rpc2L2b
+  histo hns1809eleRaw , "n s1809eleRaw", 20, 0, 20, size(s1809eleRaw)
+  histo hns1809muoRaw , "n s1809muoRaw", 20, 0, 20, size(s1809muoRaw)
+  histo hns1809bJetsOR , "n s1809bJetsOR", 20, 0, 20, size(s1809bJetsOR)
+  histo hns1809eleForJetOR , "n s1809eleForJetOR", 20, 0, 20, size(s1809eleForJetOR)
+  histo hns1809jetsNoE , "n s1809jetsNoE", 20, 0, 20, size(s1809jetsNoE)
+  histo hns1809baseEle , "n s1809baseEle", 20, 0, 20, size(s1809baseEle)
+  histo hns1809baseMuo , "n s1809baseMuo", 20, 0, 20, size(s1809baseMuo)
+  histo hns1809cleanJets , "n s1809cleanJets", 20, 0, 20, size(s1809cleanJets)
+  histo hns1809sigEle , "n s1809sigEle", 20, 0, 20, size(s1809sigEle)
+  histo hns1809elePos , "n s1809elePos", 20, 0, 20, size(s1809elePos)
+  histo hns1809eleNeg , "n s1809eleNeg", 20, 0, 20, size(s1809eleNeg)
+  select size(s1809lep20) >= 2
+  select size(s1809bJets) >= 2
+  select size(s1809jets25) >= 6
+  select size(s1809lepPos) >= 2 or size(s1809lepNeg) >= 2
+  select MET > 300
+  select vMeff > 1400
+  select MET / vMeff > 0.14
+
+region s1809Rpc3LSS1b
+  histo hns1809eleRaw , "n s1809eleRaw", 20, 0, 20, size(s1809eleRaw)
+  histo hns1809muoRaw , "n s1809muoRaw", 20, 0, 20, size(s1809muoRaw)
+  histo hns1809bJetsOR , "n s1809bJetsOR", 20, 0, 20, size(s1809bJetsOR)
+  histo hns1809eleForJetOR , "n s1809eleForJetOR", 20, 0, 20, size(s1809eleForJetOR)
+  histo hns1809jetsNoE , "n s1809jetsNoE", 20, 0, 20, size(s1809jetsNoE)
+  histo hns1809baseEle , "n s1809baseEle", 20, 0, 20, size(s1809baseEle)
+  histo hns1809baseMuo , "n s1809baseMuo", 20, 0, 20, size(s1809baseMuo)
+  histo hns1809cleanJets , "n s1809cleanJets", 20, 0, 20, size(s1809cleanJets)
+  histo hns1809sigEle , "n s1809sigEle", 20, 0, 20, size(s1809sigEle)
+  histo hns1809elePos , "n s1809elePos", 20, 0, 20, size(s1809elePos)
+  histo hns1809eleNeg , "n s1809eleNeg", 20, 0, 20, size(s1809eleNeg)
+  select size(s1809lep20) >= 2
+  select size(s1809bJets) >= 1
+  select size(s1809lepPos) >= 2 or size(s1809lepNeg) >= 2
+  select size(s1809lepPos) >= 3 or size(s1809lepNeg) >= 3
+  select size(s1809elePos) < 2 or m(s1809elePos[0] s1809elePos[1]) < 81 or m(s1809elePos[0] s1809elePos[1]) > 101
+  select size(s1809elePos) < 3 or m(s1809elePos[0] s1809elePos[2]) < 81 or m(s1809elePos[0] s1809elePos[2]) > 101
+  select size(s1809elePos) < 3 or m(s1809elePos[1] s1809elePos[2]) < 81 or m(s1809elePos[1] s1809elePos[2]) > 101
+  select size(s1809eleNeg) < 2 or m(s1809eleNeg[0] s1809eleNeg[1]) < 81 or m(s1809eleNeg[0] s1809eleNeg[1]) > 101
+  select size(s1809eleNeg) < 3 or m(s1809eleNeg[0] s1809eleNeg[2]) < 81 or m(s1809eleNeg[0] s1809eleNeg[2]) > 101
+  select size(s1809eleNeg) < 3 or m(s1809eleNeg[1] s1809eleNeg[2]) < 81 or m(s1809eleNeg[1] s1809eleNeg[2]) > 101
+  select MET / vMeff > 0.14
