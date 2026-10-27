@@ -1,0 +1,314 @@
+# Simplified analysis ADL for ATLAS-SUSY-2018-22, for event input in the Delphes format.
+# Runs with CutLang, and is also the input of ADL-Overlap-Analyzer (static overlap
+# of signal regions),
+# the names of regions and objects carry an analysis prefix so that several analyses can be compared
+# in one run, BDT regions are not included.
+
+#info analysis
+#  experiment ATLAS
+#  title "Search for squarks and gluinos in final states with jets and missing transverse momentum using 139 fb-1 of sqrt(s) = 13 TeV pp collision data with the ATLAS detector"
+#  id ATLAS-SUSY-2018-22
+#  publication JHEP 02 (2021) 143
+#  sqrtS 13.0
+#  lumi 139
+#  arXiv 2010.14293
+#  doi https://doi.org/10.1007/JHEP02(2021)143
+
+object s1822jets20
+  take JET
+  select pT(JET) > 20
+  select abs(eta(JET)) < 2.8
+
+object s1822eleRaw
+  take ELE
+  select pT(ELE) > 7
+  select abs(eta(ELE)) < 2.47
+
+object s1822muoRaw
+  take MUO
+  select pT(MUO) > 6
+  select abs(eta(MUO)) < 2.7
+
+object s1822jetsNoE
+  take s1822jets20
+  select dR(s1822jets20, allof(s1822eleRaw)) > 0.2
+
+object s1822baseEle
+  take s1822eleRaw
+  select dR(s1822eleRaw, allof(s1822jetsNoE)) >= min(0.4, 0.04 + 10 / pT(s1822eleRaw))
+
+object s1822baseMuo
+  take s1822muoRaw
+  select dR(s1822muoRaw, allof(s1822jetsNoE)) < 0.2 or dR(s1822muoRaw, allof(s1822jetsNoE)) >= min(0.4, 0.04 + 10 / pT(s1822muoRaw))
+
+object s1822baseLeptons : Union(s1822baseEle, s1822baseMuo)
+
+object s1822cleanJets
+  take s1822jetsNoE
+  select dR(s1822jetsNoE, allof(s1822baseMuo)) > 0.2
+
+object s1822sigJets
+  take s1822cleanJets
+  select pT(s1822cleanJets) > 50
+
+define vHT = fHT(s1822sigJets)
+define vMetSig = MET / sqrt(vHT)
+define vMeffIncl = fHT(s1822sigJets) + MET
+define vDphiAll = min( dphi(s1822sigJets[0:], METLV[0]) )
+define vEtaMax2 = max( eta(s1822sigJets[0:1]) )
+define vEtaMin2 = min( eta(s1822sigJets[0:1]) )
+define vEtaMax4 = max( eta(s1822sigJets[0:3]) )
+define vEtaMin4 = min( eta(s1822sigJets[0:3]) )
+define vEtaMax6 = max( eta(s1822sigJets[0:5]) )
+define vEtaMin6 = min( eta(s1822sigJets[0:5]) )
+define vAplan = fAplanarity(s1822sigJets)
+
+region s1822SR2j1600
+  histo hns1822eleRaw , "n s1822eleRaw", 20, 0, 20, size(s1822eleRaw)
+  histo hns1822muoRaw , "n s1822muoRaw", 20, 0, 20, size(s1822muoRaw)
+  histo hns1822jetsNoE , "n s1822jetsNoE", 20, 0, 20, size(s1822jetsNoE)
+  histo hns1822baseEle , "n s1822baseEle", 20, 0, 20, size(s1822baseEle)
+  histo hns1822baseMuo , "n s1822baseMuo", 20, 0, 20, size(s1822baseMuo)
+  histo hns1822cleanJets , "n s1822cleanJets", 20, 0, 20, size(s1822cleanJets)
+  histo hns1822sigJets , "n s1822sigJets", 20, 0, 20, size(s1822sigJets)
+  select size(s1822sigJets) >= 2
+  select size(s1822baseEle) == 0
+  select size(s1822baseMuo) == 0
+  select pT(s1822sigJets[0]) > 200
+  select MET > 300
+  select vMeffIncl > 800
+  select pT(s1822sigJets[0]) > 250
+  select pT(s1822sigJets[1]) > 250
+  select vEtaMax2 < 2.0
+  select vEtaMin2 > -2.0
+  select dphi(s1822sigJets[0], METLV[0]) > 0.8
+  select dphi(s1822sigJets[1], METLV[0]) > 0.8
+  select size(s1822sigJets) < 3 or dphi(s1822sigJets[2], METLV[0]) > 0.8
+  select vDphiAll > 0.4
+  select vMetSig > 16
+  select vMeffIncl > 1600
+
+region s1822SR2j2200
+  histo hns1822eleRaw , "n s1822eleRaw", 20, 0, 20, size(s1822eleRaw)
+  histo hns1822muoRaw , "n s1822muoRaw", 20, 0, 20, size(s1822muoRaw)
+  histo hns1822jetsNoE , "n s1822jetsNoE", 20, 0, 20, size(s1822jetsNoE)
+  histo hns1822baseEle , "n s1822baseEle", 20, 0, 20, size(s1822baseEle)
+  histo hns1822baseMuo , "n s1822baseMuo", 20, 0, 20, size(s1822baseMuo)
+  histo hns1822cleanJets , "n s1822cleanJets", 20, 0, 20, size(s1822cleanJets)
+  histo hns1822sigJets , "n s1822sigJets", 20, 0, 20, size(s1822sigJets)
+  select size(s1822sigJets) >= 2
+  select size(s1822baseEle) == 0
+  select size(s1822baseMuo) == 0
+  select pT(s1822sigJets[0]) > 200
+  select MET > 300
+  select vMeffIncl > 800
+  select pT(s1822sigJets[0]) > 600
+  select dphi(s1822sigJets[0], METLV[0]) > 0.4
+  select dphi(s1822sigJets[1], METLV[0]) > 0.4
+  select size(s1822sigJets) < 3 or dphi(s1822sigJets[2], METLV[0]) > 0.4
+  select vDphiAll > 0.2
+  select vMetSig > 16
+  select vMeffIncl > 2200
+
+region s1822SR2j2800
+  histo hns1822eleRaw , "n s1822eleRaw", 20, 0, 20, size(s1822eleRaw)
+  histo hns1822muoRaw , "n s1822muoRaw", 20, 0, 20, size(s1822muoRaw)
+  histo hns1822jetsNoE , "n s1822jetsNoE", 20, 0, 20, size(s1822jetsNoE)
+  histo hns1822baseEle , "n s1822baseEle", 20, 0, 20, size(s1822baseEle)
+  histo hns1822baseMuo , "n s1822baseMuo", 20, 0, 20, size(s1822baseMuo)
+  histo hns1822cleanJets , "n s1822cleanJets", 20, 0, 20, size(s1822cleanJets)
+  histo hns1822sigJets , "n s1822sigJets", 20, 0, 20, size(s1822sigJets)
+  select size(s1822sigJets) >= 2
+  select size(s1822baseEle) == 0
+  select size(s1822baseMuo) == 0
+  select pT(s1822sigJets[0]) > 200
+  select MET > 300
+  select vMeffIncl > 800
+  select pT(s1822sigJets[0]) > 250
+  select pT(s1822sigJets[1]) > 250
+  select vEtaMax2 < 1.2
+  select vEtaMin2 > -1.2
+  select dphi(s1822sigJets[0], METLV[0]) > 0.8
+  select dphi(s1822sigJets[1], METLV[0]) > 0.8
+  select size(s1822sigJets) < 3 or dphi(s1822sigJets[2], METLV[0]) > 0.8
+  select vDphiAll > 0.4
+  select vMetSig > 16
+  select vMeffIncl > 2800
+
+region s1822SR4j1000
+  histo hns1822eleRaw , "n s1822eleRaw", 20, 0, 20, size(s1822eleRaw)
+  histo hns1822muoRaw , "n s1822muoRaw", 20, 0, 20, size(s1822muoRaw)
+  histo hns1822jetsNoE , "n s1822jetsNoE", 20, 0, 20, size(s1822jetsNoE)
+  histo hns1822baseEle , "n s1822baseEle", 20, 0, 20, size(s1822baseEle)
+  histo hns1822baseMuo , "n s1822baseMuo", 20, 0, 20, size(s1822baseMuo)
+  histo hns1822cleanJets , "n s1822cleanJets", 20, 0, 20, size(s1822cleanJets)
+  histo hns1822sigJets , "n s1822sigJets", 20, 0, 20, size(s1822sigJets)
+  select size(s1822sigJets) >= 4
+  select size(s1822baseEle) == 0
+  select size(s1822baseMuo) == 0
+  select pT(s1822sigJets[0]) > 200
+  select MET > 300
+  select vMeffIncl > 800
+  select pT(s1822sigJets[0]) > 200
+  select pT(s1822sigJets[3]) > 100
+  select vEtaMax4 < 2.0
+  select vEtaMin4 > -2.0
+  select dphi(s1822sigJets[0], METLV[0]) > 0.4
+  select dphi(s1822sigJets[1], METLV[0]) > 0.4
+  select dphi(s1822sigJets[2], METLV[0]) > 0.4
+  select vDphiAll > 0.2
+  select vAplan > 0.04
+  select vMetSig > 16
+  select vMeffIncl > 1000
+
+region s1822SR4j2200
+  histo hns1822eleRaw , "n s1822eleRaw", 20, 0, 20, size(s1822eleRaw)
+  histo hns1822muoRaw , "n s1822muoRaw", 20, 0, 20, size(s1822muoRaw)
+  histo hns1822jetsNoE , "n s1822jetsNoE", 20, 0, 20, size(s1822jetsNoE)
+  histo hns1822baseEle , "n s1822baseEle", 20, 0, 20, size(s1822baseEle)
+  histo hns1822baseMuo , "n s1822baseMuo", 20, 0, 20, size(s1822baseMuo)
+  histo hns1822cleanJets , "n s1822cleanJets", 20, 0, 20, size(s1822cleanJets)
+  histo hns1822sigJets , "n s1822sigJets", 20, 0, 20, size(s1822sigJets)
+  select size(s1822sigJets) >= 4
+  select size(s1822baseEle) == 0
+  select size(s1822baseMuo) == 0
+  select pT(s1822sigJets[0]) > 200
+  select MET > 300
+  select vMeffIncl > 800
+  select pT(s1822sigJets[0]) > 200
+  select pT(s1822sigJets[3]) > 100
+  select vEtaMax4 < 2.0
+  select vEtaMin4 > -2.0
+  select dphi(s1822sigJets[0], METLV[0]) > 0.4
+  select dphi(s1822sigJets[1], METLV[0]) > 0.4
+  select dphi(s1822sigJets[2], METLV[0]) > 0.4
+  select vDphiAll > 0.2
+  select vAplan > 0.04
+  select vMetSig > 16
+  select vMeffIncl > 2200
+
+region s1822SR4j3400
+  histo hns1822eleRaw , "n s1822eleRaw", 20, 0, 20, size(s1822eleRaw)
+  histo hns1822muoRaw , "n s1822muoRaw", 20, 0, 20, size(s1822muoRaw)
+  histo hns1822jetsNoE , "n s1822jetsNoE", 20, 0, 20, size(s1822jetsNoE)
+  histo hns1822baseEle , "n s1822baseEle", 20, 0, 20, size(s1822baseEle)
+  histo hns1822baseMuo , "n s1822baseMuo", 20, 0, 20, size(s1822baseMuo)
+  histo hns1822cleanJets , "n s1822cleanJets", 20, 0, 20, size(s1822cleanJets)
+  histo hns1822sigJets , "n s1822sigJets", 20, 0, 20, size(s1822sigJets)
+  select size(s1822sigJets) >= 4
+  select size(s1822baseEle) == 0
+  select size(s1822baseMuo) == 0
+  select pT(s1822sigJets[0]) > 200
+  select MET > 300
+  select vMeffIncl > 800
+  select pT(s1822sigJets[0]) > 200
+  select pT(s1822sigJets[3]) > 100
+  select vEtaMax4 < 2.0
+  select vEtaMin4 > -2.0
+  select dphi(s1822sigJets[0], METLV[0]) > 0.4
+  select dphi(s1822sigJets[1], METLV[0]) > 0.4
+  select dphi(s1822sigJets[2], METLV[0]) > 0.4
+  select vDphiAll > 0.2
+  select vAplan > 0.04
+  select vMetSig > 10
+  select vMeffIncl > 3400
+
+region s1822SR5j1600
+  histo hns1822eleRaw , "n s1822eleRaw", 20, 0, 20, size(s1822eleRaw)
+  histo hns1822muoRaw , "n s1822muoRaw", 20, 0, 20, size(s1822muoRaw)
+  histo hns1822jetsNoE , "n s1822jetsNoE", 20, 0, 20, size(s1822jetsNoE)
+  histo hns1822baseEle , "n s1822baseEle", 20, 0, 20, size(s1822baseEle)
+  histo hns1822baseMuo , "n s1822baseMuo", 20, 0, 20, size(s1822baseMuo)
+  histo hns1822cleanJets , "n s1822cleanJets", 20, 0, 20, size(s1822cleanJets)
+  histo hns1822sigJets , "n s1822sigJets", 20, 0, 20, size(s1822sigJets)
+  select size(s1822sigJets) >= 5
+  select size(s1822baseEle) == 0
+  select size(s1822baseMuo) == 0
+  select pT(s1822sigJets[0]) > 200
+  select MET > 300
+  select vMeffIncl > 800
+  select pT(s1822sigJets[0]) > 600
+  select dphi(s1822sigJets[0], METLV[0]) > 0.4
+  select dphi(s1822sigJets[1], METLV[0]) > 0.4
+  select dphi(s1822sigJets[2], METLV[0]) > 0.4
+  select vDphiAll > 0.2
+  select vMetSig > 16
+  select vMeffIncl > 1600
+
+region s1822SR6j1000
+  histo hns1822eleRaw , "n s1822eleRaw", 20, 0, 20, size(s1822eleRaw)
+  histo hns1822muoRaw , "n s1822muoRaw", 20, 0, 20, size(s1822muoRaw)
+  histo hns1822jetsNoE , "n s1822jetsNoE", 20, 0, 20, size(s1822jetsNoE)
+  histo hns1822baseEle , "n s1822baseEle", 20, 0, 20, size(s1822baseEle)
+  histo hns1822baseMuo , "n s1822baseMuo", 20, 0, 20, size(s1822baseMuo)
+  histo hns1822cleanJets , "n s1822cleanJets", 20, 0, 20, size(s1822cleanJets)
+  histo hns1822sigJets , "n s1822sigJets", 20, 0, 20, size(s1822sigJets)
+  select size(s1822sigJets) >= 6
+  select size(s1822baseEle) == 0
+  select size(s1822baseMuo) == 0
+  select pT(s1822sigJets[0]) > 200
+  select MET > 300
+  select vMeffIncl > 800
+  select pT(s1822sigJets[0]) > 200
+  select pT(s1822sigJets[5]) > 75
+  select vEtaMax6 < 2.0
+  select vEtaMin6 > -2.0
+  select dphi(s1822sigJets[0], METLV[0]) > 0.4
+  select dphi(s1822sigJets[1], METLV[0]) > 0.4
+  select dphi(s1822sigJets[2], METLV[0]) > 0.4
+  select vDphiAll > 0.2
+  select vAplan > 0.08
+  select vMetSig > 16
+  select vMeffIncl > 1000
+
+region s1822SR6j2200
+  histo hns1822eleRaw , "n s1822eleRaw", 20, 0, 20, size(s1822eleRaw)
+  histo hns1822muoRaw , "n s1822muoRaw", 20, 0, 20, size(s1822muoRaw)
+  histo hns1822jetsNoE , "n s1822jetsNoE", 20, 0, 20, size(s1822jetsNoE)
+  histo hns1822baseEle , "n s1822baseEle", 20, 0, 20, size(s1822baseEle)
+  histo hns1822baseMuo , "n s1822baseMuo", 20, 0, 20, size(s1822baseMuo)
+  histo hns1822cleanJets , "n s1822cleanJets", 20, 0, 20, size(s1822cleanJets)
+  histo hns1822sigJets , "n s1822sigJets", 20, 0, 20, size(s1822sigJets)
+  select size(s1822sigJets) >= 6
+  select size(s1822baseEle) == 0
+  select size(s1822baseMuo) == 0
+  select pT(s1822sigJets[0]) > 200
+  select MET > 300
+  select vMeffIncl > 800
+  select pT(s1822sigJets[0]) > 200
+  select pT(s1822sigJets[5]) > 75
+  select vEtaMax6 < 2.0
+  select vEtaMin6 > -2.0
+  select dphi(s1822sigJets[0], METLV[0]) > 0.4
+  select dphi(s1822sigJets[1], METLV[0]) > 0.4
+  select dphi(s1822sigJets[2], METLV[0]) > 0.4
+  select vDphiAll > 0.2
+  select vAplan > 0.08
+  select vMetSig > 16
+  select vMeffIncl > 2200
+
+region s1822SR6j3400
+  histo hns1822eleRaw , "n s1822eleRaw", 20, 0, 20, size(s1822eleRaw)
+  histo hns1822muoRaw , "n s1822muoRaw", 20, 0, 20, size(s1822muoRaw)
+  histo hns1822jetsNoE , "n s1822jetsNoE", 20, 0, 20, size(s1822jetsNoE)
+  histo hns1822baseEle , "n s1822baseEle", 20, 0, 20, size(s1822baseEle)
+  histo hns1822baseMuo , "n s1822baseMuo", 20, 0, 20, size(s1822baseMuo)
+  histo hns1822cleanJets , "n s1822cleanJets", 20, 0, 20, size(s1822cleanJets)
+  histo hns1822sigJets , "n s1822sigJets", 20, 0, 20, size(s1822sigJets)
+  select size(s1822sigJets) >= 6
+  select size(s1822baseEle) == 0
+  select size(s1822baseMuo) == 0
+  select pT(s1822sigJets[0]) > 200
+  select MET > 300
+  select vMeffIncl > 800
+  select pT(s1822sigJets[0]) > 200
+  select pT(s1822sigJets[5]) > 75
+  select vEtaMax6 < 2.0
+  select vEtaMin6 > -2.0
+  select dphi(s1822sigJets[0], METLV[0]) > 0.4
+  select dphi(s1822sigJets[1], METLV[0]) > 0.4
+  select dphi(s1822sigJets[2], METLV[0]) > 0.4
+  select vDphiAll > 0.2
+  select vAplan > 0.08
+  select vMetSig > 10
+  select vMeffIncl > 3400
