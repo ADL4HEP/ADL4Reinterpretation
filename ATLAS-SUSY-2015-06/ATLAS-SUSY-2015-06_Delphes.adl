@@ -1,7 +1,13 @@
-info analysis
-  title "ATLAS-SUSY-2015-06 (arXiv:1605.03814)"
-  experiment ATLAS
-  sqrtS 13.0
+#info analysis
+#  experiment ATLAS
+#  title "Search for squarks and gluinos in final states with jets and missing transverse momentum at sqrt(s) = 13 TeV with the ATLAS detector"
+#  id ATLAS-SUSY-2015-06
+#  publication Eur. Phys. J. C 76 (2016) 392
+#  sqrtS 13.0
+#  lumi 3.2
+#  arXiv 1605.03814
+#  hepdata https://www.hepdata.net/record/74353
+#  doi https://doi.org/10.1140/epjc/s10052-016-4184-8
 
 object s15jets20
   take JET
