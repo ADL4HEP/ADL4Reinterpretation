@@ -1,0 +1,670 @@
+# Simplified analysis ADL for ATLAS-SUSY-2016-07, for event input in the Delphes format.
+# Runs with CutLang, and is also the input of CutLang-Overlap-Analyzer (static overlap
+# of signal regions)
+
+#info analysis
+#  experiment ATLAS
+#  title "Search for squarks and gluinos in final states with jets and missing transverse momentum using 36 fb-1 of sqrt(s) = 13 TeV pp collision data with the ATLAS detector"
+#  id ATLAS-SUSY-2016-07
+#  publication Phys. Rev. D 97 (2018) 112001
+#  sqrtS 13.0
+#  lumi 36.1
+#  arXiv 1712.02332
+#  doi https://doi.org/10.1103/PhysRevD.97.112001
+
+object s16jets20
+  take JET
+  select pT(JET) > 20
+  select abs(eta(JET)) < 2.8
+
+object s16eleRaw
+  take ELE
+  select pT(ELE) > 7
+  select abs(eta(ELE)) < 2.47
+
+object s16muoRaw
+  take MUO
+  select pT(MUO) > 7
+  select abs(eta(MUO)) < 2.7
+
+object s16bJetsOR
+  take s16jets20
+  select BTag(s16jets20) == 1
+  select abs(eta(s16jets20)) < 2.5
+
+object s16eleForJetOR
+  take s16eleRaw
+  select dR(s16eleRaw, allof(s16bJetsOR)) > 0.2
+
+object s16jetsNoE
+  take s16jets20
+  select dR(s16jets20, allof(s16eleForJetOR)) > 0.2
+
+object s16baseEle
+  take s16eleRaw
+  select dR(s16eleRaw, allof(s16jetsNoE)) > 0.4
+
+object s16baseMuo
+  take s16muoRaw
+  select dR(s16muoRaw, allof(s16jetsNoE)) < 0.2 or dR(s16muoRaw, allof(s16jetsNoE)) >= min(0.4, 0.04 + 10 / pT(s16muoRaw))
+
+object s16baseLeptons : Union(s16baseEle, s16baseMuo)
+
+object s16cleanJets
+  take s16jetsNoE
+  select dR(s16jetsNoE, allof(s16baseMuo)) > 0.2
+
+object s16sigJets
+  take s16cleanJets
+  select pT(s16cleanJets) > 50
+
+object s16fatJets
+  take FJET
+  select pT(FJET) > 200
+
+define vHT = fHT(s16cleanJets)
+define vMetSig = MET / sqrt(vHT)
+define vMeffIncl = fHT(s16sigJets) + MET
+define vMeff4 = sum( pT(s16sigJets[0:3]) ) + MET
+define vMeff5 = sum( pT(s16sigJets[0:4]) ) + MET
+define vMeff6 = sum( pT(s16sigJets[0:5]) ) + MET
+define vDphiAll = min( dphi(s16sigJets[0:], METLV[0]) )
+define vEtaMax2 = max( eta(s16sigJets[0:1]) )
+define vEtaMin2 = min( eta(s16sigJets[0:1]) )
+define vEtaMax4 = max( eta(s16sigJets[0:3]) )
+define vEtaMin4 = min( eta(s16sigJets[0:3]) )
+define vEtaMax6 = max( eta(s16sigJets[0:5]) )
+define vEtaMin6 = min( eta(s16sigJets[0:5]) )
+define vAplan = fAplanarity(s16sigJets)
+
+region Meff2j1200
+  histo hns16eleRaw , "n s16eleRaw", 20, 0, 20, size(s16eleRaw)
+  histo hns16muoRaw , "n s16muoRaw", 20, 0, 20, size(s16muoRaw)
+  histo hns16bJetsOR , "n s16bJetsOR", 20, 0, 20, size(s16bJetsOR)
+  histo hns16eleForJetOR , "n s16eleForJetOR", 20, 0, 20, size(s16eleForJetOR)
+  histo hns16jetsNoE , "n s16jetsNoE", 20, 0, 20, size(s16jetsNoE)
+  histo hns16baseEle , "n s16baseEle", 20, 0, 20, size(s16baseEle)
+  histo hns16baseMuo , "n s16baseMuo", 20, 0, 20, size(s16baseMuo)
+  histo hns16cleanJets , "n s16cleanJets", 20, 0, 20, size(s16cleanJets)
+  histo hns16sigJets , "n s16sigJets", 20, 0, 20, size(s16sigJets)
+  select size(s16sigJets) >= 2
+  select size(s16baseEle) == 0
+  select size(s16baseMuo) == 0
+  select MET > 250
+  select pT(s16sigJets[0]) > 250
+  select pT(s16sigJets[1]) > 250
+  select vEtaMax2 < 0.8
+  select vEtaMin2 > -0.8
+  select dphi(s16sigJets[0], METLV[0]) > 0.8
+  select dphi(s16sigJets[1], METLV[0]) > 0.8
+  select size(s16sigJets) < 3 or dphi(s16sigJets[2], METLV[0]) > 0.8
+  select vDphiAll > 0.4
+  select vMetSig > 14
+  select vMeffIncl > 1200
+
+region Meff2j1600
+  histo hns16eleRaw , "n s16eleRaw", 20, 0, 20, size(s16eleRaw)
+  histo hns16muoRaw , "n s16muoRaw", 20, 0, 20, size(s16muoRaw)
+  histo hns16bJetsOR , "n s16bJetsOR", 20, 0, 20, size(s16bJetsOR)
+  histo hns16eleForJetOR , "n s16eleForJetOR", 20, 0, 20, size(s16eleForJetOR)
+  histo hns16jetsNoE , "n s16jetsNoE", 20, 0, 20, size(s16jetsNoE)
+  histo hns16baseEle , "n s16baseEle", 20, 0, 20, size(s16baseEle)
+  histo hns16baseMuo , "n s16baseMuo", 20, 0, 20, size(s16baseMuo)
+  histo hns16cleanJets , "n s16cleanJets", 20, 0, 20, size(s16cleanJets)
+  histo hns16sigJets , "n s16sigJets", 20, 0, 20, size(s16sigJets)
+  select size(s16sigJets) >= 2
+  select size(s16baseEle) == 0
+  select size(s16baseMuo) == 0
+  select MET > 250
+  select pT(s16sigJets[0]) > 300
+  select pT(s16sigJets[1]) > 300
+  select vEtaMax2 < 1.2
+  select vEtaMin2 > -1.2
+  select dphi(s16sigJets[0], METLV[0]) > 0.8
+  select dphi(s16sigJets[1], METLV[0]) > 0.8
+  select size(s16sigJets) < 3 or dphi(s16sigJets[2], METLV[0]) > 0.8
+  select vDphiAll > 0.4
+  select vMetSig > 18
+  select vMeffIncl > 1600
+
+region Meff2j2000
+  histo hns16eleRaw , "n s16eleRaw", 20, 0, 20, size(s16eleRaw)
+  histo hns16muoRaw , "n s16muoRaw", 20, 0, 20, size(s16muoRaw)
+  histo hns16bJetsOR , "n s16bJetsOR", 20, 0, 20, size(s16bJetsOR)
+  histo hns16eleForJetOR , "n s16eleForJetOR", 20, 0, 20, size(s16eleForJetOR)
+  histo hns16jetsNoE , "n s16jetsNoE", 20, 0, 20, size(s16jetsNoE)
+  histo hns16baseEle , "n s16baseEle", 20, 0, 20, size(s16baseEle)
+  histo hns16baseMuo , "n s16baseMuo", 20, 0, 20, size(s16baseMuo)
+  histo hns16cleanJets , "n s16cleanJets", 20, 0, 20, size(s16cleanJets)
+  histo hns16sigJets , "n s16sigJets", 20, 0, 20, size(s16sigJets)
+  select size(s16sigJets) >= 2
+  select size(s16baseEle) == 0
+  select size(s16baseMuo) == 0
+  select MET > 250
+  select pT(s16sigJets[0]) > 350
+  select pT(s16sigJets[1]) > 350
+  select vEtaMax2 < 1.2
+  select vEtaMin2 > -1.2
+  select dphi(s16sigJets[0], METLV[0]) > 0.8
+  select dphi(s16sigJets[1], METLV[0]) > 0.8
+  select size(s16sigJets) < 3 or dphi(s16sigJets[2], METLV[0]) > 0.8
+  select vDphiAll > 0.4
+  select vMetSig > 18
+  select vMeffIncl > 2000
+
+region Meff2j2400
+  histo hns16eleRaw , "n s16eleRaw", 20, 0, 20, size(s16eleRaw)
+  histo hns16muoRaw , "n s16muoRaw", 20, 0, 20, size(s16muoRaw)
+  histo hns16bJetsOR , "n s16bJetsOR", 20, 0, 20, size(s16bJetsOR)
+  histo hns16eleForJetOR , "n s16eleForJetOR", 20, 0, 20, size(s16eleForJetOR)
+  histo hns16jetsNoE , "n s16jetsNoE", 20, 0, 20, size(s16jetsNoE)
+  histo hns16baseEle , "n s16baseEle", 20, 0, 20, size(s16baseEle)
+  histo hns16baseMuo , "n s16baseMuo", 20, 0, 20, size(s16baseMuo)
+  histo hns16cleanJets , "n s16cleanJets", 20, 0, 20, size(s16cleanJets)
+  histo hns16sigJets , "n s16sigJets", 20, 0, 20, size(s16sigJets)
+  select size(s16sigJets) >= 2
+  select size(s16baseEle) == 0
+  select size(s16baseMuo) == 0
+  select MET > 250
+  select pT(s16sigJets[0]) > 350
+  select pT(s16sigJets[1]) > 350
+  select vEtaMax2 < 1.2
+  select vEtaMin2 > -1.2
+  select dphi(s16sigJets[0], METLV[0]) > 0.8
+  select dphi(s16sigJets[1], METLV[0]) > 0.8
+  select size(s16sigJets) < 3 or dphi(s16sigJets[2], METLV[0]) > 0.8
+  select vDphiAll > 0.4
+  select vMetSig > 18
+  select vMeffIncl > 2400
+
+region Meff2j2800
+  histo hns16eleRaw , "n s16eleRaw", 20, 0, 20, size(s16eleRaw)
+  histo hns16muoRaw , "n s16muoRaw", 20, 0, 20, size(s16muoRaw)
+  histo hns16bJetsOR , "n s16bJetsOR", 20, 0, 20, size(s16bJetsOR)
+  histo hns16eleForJetOR , "n s16eleForJetOR", 20, 0, 20, size(s16eleForJetOR)
+  histo hns16jetsNoE , "n s16jetsNoE", 20, 0, 20, size(s16jetsNoE)
+  histo hns16baseEle , "n s16baseEle", 20, 0, 20, size(s16baseEle)
+  histo hns16baseMuo , "n s16baseMuo", 20, 0, 20, size(s16baseMuo)
+  histo hns16cleanJets , "n s16cleanJets", 20, 0, 20, size(s16cleanJets)
+  histo hns16sigJets , "n s16sigJets", 20, 0, 20, size(s16sigJets)
+  select size(s16sigJets) >= 2
+  select size(s16baseEle) == 0
+  select size(s16baseMuo) == 0
+  select MET > 250
+  select pT(s16sigJets[0]) > 350
+  select pT(s16sigJets[1]) > 350
+  select vEtaMax2 < 1.2
+  select vEtaMin2 > -1.2
+  select dphi(s16sigJets[0], METLV[0]) > 0.8
+  select dphi(s16sigJets[1], METLV[0]) > 0.8
+  select size(s16sigJets) < 3 or dphi(s16sigJets[2], METLV[0]) > 0.8
+  select vDphiAll > 0.4
+  select vMetSig > 18
+  select vMeffIncl > 2800
+
+region Meff2j3600
+  histo hns16eleRaw , "n s16eleRaw", 20, 0, 20, size(s16eleRaw)
+  histo hns16muoRaw , "n s16muoRaw", 20, 0, 20, size(s16muoRaw)
+  histo hns16bJetsOR , "n s16bJetsOR", 20, 0, 20, size(s16bJetsOR)
+  histo hns16eleForJetOR , "n s16eleForJetOR", 20, 0, 20, size(s16eleForJetOR)
+  histo hns16jetsNoE , "n s16jetsNoE", 20, 0, 20, size(s16jetsNoE)
+  histo hns16baseEle , "n s16baseEle", 20, 0, 20, size(s16baseEle)
+  histo hns16baseMuo , "n s16baseMuo", 20, 0, 20, size(s16baseMuo)
+  histo hns16cleanJets , "n s16cleanJets", 20, 0, 20, size(s16cleanJets)
+  histo hns16sigJets , "n s16sigJets", 20, 0, 20, size(s16sigJets)
+  select size(s16sigJets) >= 2
+  select size(s16baseEle) == 0
+  select size(s16baseMuo) == 0
+  select MET > 250
+  select pT(s16sigJets[0]) > 350
+  select pT(s16sigJets[1]) > 350
+  select dphi(s16sigJets[0], METLV[0]) > 0.8
+  select dphi(s16sigJets[1], METLV[0]) > 0.8
+  select size(s16sigJets) < 3 or dphi(s16sigJets[2], METLV[0]) > 0.8
+  select vDphiAll > 0.4
+  select vMetSig > 18
+  select vMeffIncl > 3600
+
+region Meff2j2100
+  histo hns16eleRaw , "n s16eleRaw", 20, 0, 20, size(s16eleRaw)
+  histo hns16muoRaw , "n s16muoRaw", 20, 0, 20, size(s16muoRaw)
+  histo hns16bJetsOR , "n s16bJetsOR", 20, 0, 20, size(s16bJetsOR)
+  histo hns16eleForJetOR , "n s16eleForJetOR", 20, 0, 20, size(s16eleForJetOR)
+  histo hns16jetsNoE , "n s16jetsNoE", 20, 0, 20, size(s16jetsNoE)
+  histo hns16baseEle , "n s16baseEle", 20, 0, 20, size(s16baseEle)
+  histo hns16baseMuo , "n s16baseMuo", 20, 0, 20, size(s16baseMuo)
+  histo hns16cleanJets , "n s16cleanJets", 20, 0, 20, size(s16cleanJets)
+  histo hns16sigJets , "n s16sigJets", 20, 0, 20, size(s16sigJets)
+  select size(s16sigJets) >= 2
+  select size(s16baseEle) == 0
+  select size(s16baseMuo) == 0
+  select MET > 250
+  select pT(s16sigJets[0]) > 600
+  select pT(s16sigJets[1]) > 50
+  select dphi(s16sigJets[0], METLV[0]) > 0.4
+  select dphi(s16sigJets[1], METLV[0]) > 0.4
+  select size(s16sigJets) < 3 or dphi(s16sigJets[2], METLV[0]) > 0.4
+  select vDphiAll > 0.2
+  select vMetSig > 26
+  select vMeffIncl > 2100
+
+region Meff3j1300
+  histo hns16eleRaw , "n s16eleRaw", 20, 0, 20, size(s16eleRaw)
+  histo hns16muoRaw , "n s16muoRaw", 20, 0, 20, size(s16muoRaw)
+  histo hns16bJetsOR , "n s16bJetsOR", 20, 0, 20, size(s16bJetsOR)
+  histo hns16eleForJetOR , "n s16eleForJetOR", 20, 0, 20, size(s16eleForJetOR)
+  histo hns16jetsNoE , "n s16jetsNoE", 20, 0, 20, size(s16jetsNoE)
+  histo hns16baseEle , "n s16baseEle", 20, 0, 20, size(s16baseEle)
+  histo hns16baseMuo , "n s16baseMuo", 20, 0, 20, size(s16baseMuo)
+  histo hns16cleanJets , "n s16cleanJets", 20, 0, 20, size(s16cleanJets)
+  histo hns16sigJets , "n s16sigJets", 20, 0, 20, size(s16sigJets)
+  select size(s16sigJets) >= 3
+  select size(s16baseEle) == 0
+  select size(s16baseMuo) == 0
+  select MET > 250
+  select pT(s16sigJets[0]) > 700
+  select pT(s16sigJets[2]) > 50
+  select dphi(s16sigJets[0], METLV[0]) > 0.4
+  select dphi(s16sigJets[1], METLV[0]) > 0.4
+  select dphi(s16sigJets[2], METLV[0]) > 0.4
+  select vDphiAll > 0.2
+  select vMetSig > 16
+  select vMeffIncl > 1300
+
+region Meff4j1000
+  histo hns16eleRaw , "n s16eleRaw", 20, 0, 20, size(s16eleRaw)
+  histo hns16muoRaw , "n s16muoRaw", 20, 0, 20, size(s16muoRaw)
+  histo hns16bJetsOR , "n s16bJetsOR", 20, 0, 20, size(s16bJetsOR)
+  histo hns16eleForJetOR , "n s16eleForJetOR", 20, 0, 20, size(s16eleForJetOR)
+  histo hns16jetsNoE , "n s16jetsNoE", 20, 0, 20, size(s16jetsNoE)
+  histo hns16baseEle , "n s16baseEle", 20, 0, 20, size(s16baseEle)
+  histo hns16baseMuo , "n s16baseMuo", 20, 0, 20, size(s16baseMuo)
+  histo hns16cleanJets , "n s16cleanJets", 20, 0, 20, size(s16cleanJets)
+  histo hns16sigJets , "n s16sigJets", 20, 0, 20, size(s16sigJets)
+  select size(s16sigJets) >= 4
+  select size(s16baseEle) == 0
+  select size(s16baseMuo) == 0
+  select MET > 250
+  select pT(s16sigJets[0]) > 200
+  select pT(s16sigJets[3]) > 100
+  select vEtaMax4 < 1.2
+  select vEtaMin4 > -1.2
+  select dphi(s16sigJets[0], METLV[0]) > 0.4
+  select dphi(s16sigJets[1], METLV[0]) > 0.4
+  select dphi(s16sigJets[2], METLV[0]) > 0.4
+  select vDphiAll > 0.4
+  select MET / vMeff4 > 0.3
+  select vAplan > 0.04
+  select vMeffIncl > 1000
+
+region Meff4j1400
+  histo hns16eleRaw , "n s16eleRaw", 20, 0, 20, size(s16eleRaw)
+  histo hns16muoRaw , "n s16muoRaw", 20, 0, 20, size(s16muoRaw)
+  histo hns16bJetsOR , "n s16bJetsOR", 20, 0, 20, size(s16bJetsOR)
+  histo hns16eleForJetOR , "n s16eleForJetOR", 20, 0, 20, size(s16eleForJetOR)
+  histo hns16jetsNoE , "n s16jetsNoE", 20, 0, 20, size(s16jetsNoE)
+  histo hns16baseEle , "n s16baseEle", 20, 0, 20, size(s16baseEle)
+  histo hns16baseMuo , "n s16baseMuo", 20, 0, 20, size(s16baseMuo)
+  histo hns16cleanJets , "n s16cleanJets", 20, 0, 20, size(s16cleanJets)
+  histo hns16sigJets , "n s16sigJets", 20, 0, 20, size(s16sigJets)
+  select size(s16sigJets) >= 4
+  select size(s16baseEle) == 0
+  select size(s16baseMuo) == 0
+  select MET > 250
+  select pT(s16sigJets[0]) > 200
+  select pT(s16sigJets[3]) > 100
+  select vEtaMax4 < 2.0
+  select vEtaMin4 > -2.0
+  select dphi(s16sigJets[0], METLV[0]) > 0.4
+  select dphi(s16sigJets[1], METLV[0]) > 0.4
+  select dphi(s16sigJets[2], METLV[0]) > 0.4
+  select vDphiAll > 0.4
+  select MET / vMeff4 > 0.25
+  select vAplan > 0.04
+  select vMeffIncl > 1400
+
+region Meff4j1800
+  histo hns16eleRaw , "n s16eleRaw", 20, 0, 20, size(s16eleRaw)
+  histo hns16muoRaw , "n s16muoRaw", 20, 0, 20, size(s16muoRaw)
+  histo hns16bJetsOR , "n s16bJetsOR", 20, 0, 20, size(s16bJetsOR)
+  histo hns16eleForJetOR , "n s16eleForJetOR", 20, 0, 20, size(s16eleForJetOR)
+  histo hns16jetsNoE , "n s16jetsNoE", 20, 0, 20, size(s16jetsNoE)
+  histo hns16baseEle , "n s16baseEle", 20, 0, 20, size(s16baseEle)
+  histo hns16baseMuo , "n s16baseMuo", 20, 0, 20, size(s16baseMuo)
+  histo hns16cleanJets , "n s16cleanJets", 20, 0, 20, size(s16cleanJets)
+  histo hns16sigJets , "n s16sigJets", 20, 0, 20, size(s16sigJets)
+  select size(s16sigJets) >= 4
+  select size(s16baseEle) == 0
+  select size(s16baseMuo) == 0
+  select MET > 250
+  select pT(s16sigJets[0]) > 200
+  select pT(s16sigJets[3]) > 100
+  select vEtaMax4 < 2.0
+  select vEtaMin4 > -2.0
+  select dphi(s16sigJets[0], METLV[0]) > 0.4
+  select dphi(s16sigJets[1], METLV[0]) > 0.4
+  select dphi(s16sigJets[2], METLV[0]) > 0.4
+  select vDphiAll > 0.4
+  select MET / vMeff4 > 0.25
+  select vAplan > 0.04
+  select vMeffIncl > 1800
+
+region Meff4j2200
+  histo hns16eleRaw , "n s16eleRaw", 20, 0, 20, size(s16eleRaw)
+  histo hns16muoRaw , "n s16muoRaw", 20, 0, 20, size(s16muoRaw)
+  histo hns16bJetsOR , "n s16bJetsOR", 20, 0, 20, size(s16bJetsOR)
+  histo hns16eleForJetOR , "n s16eleForJetOR", 20, 0, 20, size(s16eleForJetOR)
+  histo hns16jetsNoE , "n s16jetsNoE", 20, 0, 20, size(s16jetsNoE)
+  histo hns16baseEle , "n s16baseEle", 20, 0, 20, size(s16baseEle)
+  histo hns16baseMuo , "n s16baseMuo", 20, 0, 20, size(s16baseMuo)
+  histo hns16cleanJets , "n s16cleanJets", 20, 0, 20, size(s16cleanJets)
+  histo hns16sigJets , "n s16sigJets", 20, 0, 20, size(s16sigJets)
+  select size(s16sigJets) >= 4
+  select size(s16baseEle) == 0
+  select size(s16baseMuo) == 0
+  select MET > 250
+  select pT(s16sigJets[0]) > 200
+  select pT(s16sigJets[3]) > 100
+  select vEtaMax4 < 2.0
+  select vEtaMin4 > -2.0
+  select dphi(s16sigJets[0], METLV[0]) > 0.4
+  select dphi(s16sigJets[1], METLV[0]) > 0.4
+  select dphi(s16sigJets[2], METLV[0]) > 0.4
+  select vDphiAll > 0.4
+  select MET / vMeff4 > 0.25
+  select vAplan > 0.04
+  select vMeffIncl > 2200
+
+region Meff4j2600
+  histo hns16eleRaw , "n s16eleRaw", 20, 0, 20, size(s16eleRaw)
+  histo hns16muoRaw , "n s16muoRaw", 20, 0, 20, size(s16muoRaw)
+  histo hns16bJetsOR , "n s16bJetsOR", 20, 0, 20, size(s16bJetsOR)
+  histo hns16eleForJetOR , "n s16eleForJetOR", 20, 0, 20, size(s16eleForJetOR)
+  histo hns16jetsNoE , "n s16jetsNoE", 20, 0, 20, size(s16jetsNoE)
+  histo hns16baseEle , "n s16baseEle", 20, 0, 20, size(s16baseEle)
+  histo hns16baseMuo , "n s16baseMuo", 20, 0, 20, size(s16baseMuo)
+  histo hns16cleanJets , "n s16cleanJets", 20, 0, 20, size(s16cleanJets)
+  histo hns16sigJets , "n s16sigJets", 20, 0, 20, size(s16sigJets)
+  select size(s16sigJets) >= 4
+  select size(s16baseEle) == 0
+  select size(s16baseMuo) == 0
+  select MET > 250
+  select pT(s16sigJets[0]) > 200
+  select pT(s16sigJets[3]) > 150
+  select vEtaMax4 < 2.0
+  select vEtaMin4 > -2.0
+  select dphi(s16sigJets[0], METLV[0]) > 0.4
+  select dphi(s16sigJets[1], METLV[0]) > 0.4
+  select dphi(s16sigJets[2], METLV[0]) > 0.4
+  select vDphiAll > 0.4
+  select MET / vMeff4 > 0.2
+  select vAplan > 0.04
+  select vMeffIncl > 2600
+
+region Meff4j3000
+  histo hns16eleRaw , "n s16eleRaw", 20, 0, 20, size(s16eleRaw)
+  histo hns16muoRaw , "n s16muoRaw", 20, 0, 20, size(s16muoRaw)
+  histo hns16bJetsOR , "n s16bJetsOR", 20, 0, 20, size(s16bJetsOR)
+  histo hns16eleForJetOR , "n s16eleForJetOR", 20, 0, 20, size(s16eleForJetOR)
+  histo hns16jetsNoE , "n s16jetsNoE", 20, 0, 20, size(s16jetsNoE)
+  histo hns16baseEle , "n s16baseEle", 20, 0, 20, size(s16baseEle)
+  histo hns16baseMuo , "n s16baseMuo", 20, 0, 20, size(s16baseMuo)
+  histo hns16cleanJets , "n s16cleanJets", 20, 0, 20, size(s16cleanJets)
+  histo hns16sigJets , "n s16sigJets", 20, 0, 20, size(s16sigJets)
+  select size(s16sigJets) >= 4
+  select size(s16baseEle) == 0
+  select size(s16baseMuo) == 0
+  select MET > 250
+  select pT(s16sigJets[0]) > 200
+  select pT(s16sigJets[3]) > 150
+  select vEtaMax4 < 2.0
+  select vEtaMin4 > -2.0
+  select dphi(s16sigJets[0], METLV[0]) > 0.4
+  select dphi(s16sigJets[1], METLV[0]) > 0.4
+  select dphi(s16sigJets[2], METLV[0]) > 0.4
+  select vDphiAll > 0.4
+  select MET / vMeff4 > 0.2
+  select vAplan > 0.04
+  select vMeffIncl > 3000
+
+region Meff5j1700
+  histo hns16eleRaw , "n s16eleRaw", 20, 0, 20, size(s16eleRaw)
+  histo hns16muoRaw , "n s16muoRaw", 20, 0, 20, size(s16muoRaw)
+  histo hns16bJetsOR , "n s16bJetsOR", 20, 0, 20, size(s16bJetsOR)
+  histo hns16eleForJetOR , "n s16eleForJetOR", 20, 0, 20, size(s16eleForJetOR)
+  histo hns16jetsNoE , "n s16jetsNoE", 20, 0, 20, size(s16jetsNoE)
+  histo hns16baseEle , "n s16baseEle", 20, 0, 20, size(s16baseEle)
+  histo hns16baseMuo , "n s16baseMuo", 20, 0, 20, size(s16baseMuo)
+  histo hns16cleanJets , "n s16cleanJets", 20, 0, 20, size(s16cleanJets)
+  histo hns16sigJets , "n s16sigJets", 20, 0, 20, size(s16sigJets)
+  select size(s16sigJets) >= 5
+  select size(s16baseEle) == 0
+  select size(s16baseMuo) == 0
+  select MET > 250
+  select pT(s16sigJets[0]) > 700
+  select dphi(s16sigJets[0], METLV[0]) > 0.4
+  select dphi(s16sigJets[1], METLV[0]) > 0.4
+  select dphi(s16sigJets[2], METLV[0]) > 0.4
+  select vDphiAll > 0.2
+  select MET / vMeff5 > 0.3
+  select vMeffIncl > 1700
+
+region Meff5j1600
+  histo hns16eleRaw , "n s16eleRaw", 20, 0, 20, size(s16eleRaw)
+  histo hns16muoRaw , "n s16muoRaw", 20, 0, 20, size(s16muoRaw)
+  histo hns16bJetsOR , "n s16bJetsOR", 20, 0, 20, size(s16bJetsOR)
+  histo hns16eleForJetOR , "n s16eleForJetOR", 20, 0, 20, size(s16eleForJetOR)
+  histo hns16jetsNoE , "n s16jetsNoE", 20, 0, 20, size(s16jetsNoE)
+  histo hns16baseEle , "n s16baseEle", 20, 0, 20, size(s16baseEle)
+  histo hns16baseMuo , "n s16baseMuo", 20, 0, 20, size(s16baseMuo)
+  histo hns16cleanJets , "n s16cleanJets", 20, 0, 20, size(s16cleanJets)
+  histo hns16sigJets , "n s16sigJets", 20, 0, 20, size(s16sigJets)
+  select size(s16sigJets) >= 5
+  select size(s16baseEle) == 0
+  select size(s16baseMuo) == 0
+  select MET > 250
+  select pT(s16sigJets[0]) > 200
+  select dphi(s16sigJets[0], METLV[0]) > 0.4
+  select dphi(s16sigJets[1], METLV[0]) > 0.4
+  select dphi(s16sigJets[2], METLV[0]) > 0.4
+  select vDphiAll > 0.2
+  select MET / vMeff5 > 0.15
+  select vAplan > 0.08
+  select vMeffIncl > 1600
+
+region Meff5j2000
+  histo hns16eleRaw , "n s16eleRaw", 20, 0, 20, size(s16eleRaw)
+  histo hns16muoRaw , "n s16muoRaw", 20, 0, 20, size(s16muoRaw)
+  histo hns16bJetsOR , "n s16bJetsOR", 20, 0, 20, size(s16bJetsOR)
+  histo hns16eleForJetOR , "n s16eleForJetOR", 20, 0, 20, size(s16eleForJetOR)
+  histo hns16jetsNoE , "n s16jetsNoE", 20, 0, 20, size(s16jetsNoE)
+  histo hns16baseEle , "n s16baseEle", 20, 0, 20, size(s16baseEle)
+  histo hns16baseMuo , "n s16baseMuo", 20, 0, 20, size(s16baseMuo)
+  histo hns16cleanJets , "n s16cleanJets", 20, 0, 20, size(s16cleanJets)
+  histo hns16sigJets , "n s16sigJets", 20, 0, 20, size(s16sigJets)
+  select size(s16sigJets) >= 5
+  select size(s16baseEle) == 0
+  select size(s16baseMuo) == 0
+  select MET > 250
+  select pT(s16sigJets[0]) > 200
+  select dphi(s16sigJets[0], METLV[0]) > 0.4
+  select dphi(s16sigJets[1], METLV[0]) > 0.4
+  select dphi(s16sigJets[2], METLV[0]) > 0.4
+  select vDphiAll > 0.4
+  select vMetSig > 15
+  select vMeffIncl > 2000
+
+region Meff5j2600
+  histo hns16eleRaw , "n s16eleRaw", 20, 0, 20, size(s16eleRaw)
+  histo hns16muoRaw , "n s16muoRaw", 20, 0, 20, size(s16muoRaw)
+  histo hns16bJetsOR , "n s16bJetsOR", 20, 0, 20, size(s16bJetsOR)
+  histo hns16eleForJetOR , "n s16eleForJetOR", 20, 0, 20, size(s16eleForJetOR)
+  histo hns16jetsNoE , "n s16jetsNoE", 20, 0, 20, size(s16jetsNoE)
+  histo hns16baseEle , "n s16baseEle", 20, 0, 20, size(s16baseEle)
+  histo hns16baseMuo , "n s16baseMuo", 20, 0, 20, size(s16baseMuo)
+  histo hns16cleanJets , "n s16cleanJets", 20, 0, 20, size(s16cleanJets)
+  histo hns16sigJets , "n s16sigJets", 20, 0, 20, size(s16sigJets)
+  select size(s16sigJets) >= 5
+  select size(s16baseEle) == 0
+  select size(s16baseMuo) == 0
+  select MET > 250
+  select pT(s16sigJets[0]) > 200
+  select dphi(s16sigJets[0], METLV[0]) > 0.8
+  select dphi(s16sigJets[1], METLV[0]) > 0.8
+  select dphi(s16sigJets[2], METLV[0]) > 0.8
+  select vDphiAll > 0.4
+  select vMetSig > 18
+  select vMeffIncl > 2600
+
+region Meff6j1200
+  histo hns16eleRaw , "n s16eleRaw", 20, 0, 20, size(s16eleRaw)
+  histo hns16muoRaw , "n s16muoRaw", 20, 0, 20, size(s16muoRaw)
+  histo hns16bJetsOR , "n s16bJetsOR", 20, 0, 20, size(s16bJetsOR)
+  histo hns16eleForJetOR , "n s16eleForJetOR", 20, 0, 20, size(s16eleForJetOR)
+  histo hns16jetsNoE , "n s16jetsNoE", 20, 0, 20, size(s16jetsNoE)
+  histo hns16baseEle , "n s16baseEle", 20, 0, 20, size(s16baseEle)
+  histo hns16baseMuo , "n s16baseMuo", 20, 0, 20, size(s16baseMuo)
+  histo hns16cleanJets , "n s16cleanJets", 20, 0, 20, size(s16cleanJets)
+  histo hns16sigJets , "n s16sigJets", 20, 0, 20, size(s16sigJets)
+  select size(s16sigJets) >= 6
+  select size(s16baseEle) == 0
+  select size(s16baseMuo) == 0
+  select MET > 250
+  select pT(s16sigJets[0]) > 200
+  select vEtaMax6 < 2.0
+  select vEtaMin6 > -2.0
+  select dphi(s16sigJets[0], METLV[0]) > 0.4
+  select dphi(s16sigJets[1], METLV[0]) > 0.4
+  select dphi(s16sigJets[2], METLV[0]) > 0.4
+  select vDphiAll > 0.2
+  select MET / vMeff6 > 0.25
+  select vMeffIncl > 1200
+
+region Meff6j1800
+  histo hns16eleRaw , "n s16eleRaw", 20, 0, 20, size(s16eleRaw)
+  histo hns16muoRaw , "n s16muoRaw", 20, 0, 20, size(s16muoRaw)
+  histo hns16bJetsOR , "n s16bJetsOR", 20, 0, 20, size(s16bJetsOR)
+  histo hns16eleForJetOR , "n s16eleForJetOR", 20, 0, 20, size(s16eleForJetOR)
+  histo hns16jetsNoE , "n s16jetsNoE", 20, 0, 20, size(s16jetsNoE)
+  histo hns16baseEle , "n s16baseEle", 20, 0, 20, size(s16baseEle)
+  histo hns16baseMuo , "n s16baseMuo", 20, 0, 20, size(s16baseMuo)
+  histo hns16cleanJets , "n s16cleanJets", 20, 0, 20, size(s16cleanJets)
+  histo hns16sigJets , "n s16sigJets", 20, 0, 20, size(s16sigJets)
+  select size(s16sigJets) >= 6
+  select size(s16baseEle) == 0
+  select size(s16baseMuo) == 0
+  select MET > 250
+  select pT(s16sigJets[0]) > 200
+  select pT(s16sigJets[4]) > 100
+  select pT(s16sigJets[5]) > 100
+  select vEtaMax6 < 2.0
+  select vEtaMin6 > -2.0
+  select dphi(s16sigJets[0], METLV[0]) > 0.4
+  select dphi(s16sigJets[1], METLV[0]) > 0.4
+  select dphi(s16sigJets[2], METLV[0]) > 0.4
+  select vDphiAll > 0.2
+  select MET / vMeff6 > 0.2
+  select vAplan > 0.04
+  select vMeffIncl > 1800
+
+region Meff6j2200
+  histo hns16eleRaw , "n s16eleRaw", 20, 0, 20, size(s16eleRaw)
+  histo hns16muoRaw , "n s16muoRaw", 20, 0, 20, size(s16muoRaw)
+  histo hns16bJetsOR , "n s16bJetsOR", 20, 0, 20, size(s16bJetsOR)
+  histo hns16eleForJetOR , "n s16eleForJetOR", 20, 0, 20, size(s16eleForJetOR)
+  histo hns16jetsNoE , "n s16jetsNoE", 20, 0, 20, size(s16jetsNoE)
+  histo hns16baseEle , "n s16baseEle", 20, 0, 20, size(s16baseEle)
+  histo hns16baseMuo , "n s16baseMuo", 20, 0, 20, size(s16baseMuo)
+  histo hns16cleanJets , "n s16cleanJets", 20, 0, 20, size(s16cleanJets)
+  histo hns16sigJets , "n s16sigJets", 20, 0, 20, size(s16sigJets)
+  select size(s16sigJets) >= 6
+  select size(s16baseEle) == 0
+  select size(s16baseMuo) == 0
+  select MET > 250
+  select pT(s16sigJets[0]) > 200
+  select pT(s16sigJets[4]) > 100
+  select pT(s16sigJets[5]) > 100
+  select dphi(s16sigJets[0], METLV[0]) > 0.4
+  select dphi(s16sigJets[1], METLV[0]) > 0.4
+  select dphi(s16sigJets[2], METLV[0]) > 0.4
+  select vDphiAll > 0.2
+  select MET / vMeff6 > 0.2
+  select vAplan > 0.08
+  select vMeffIncl > 2200
+
+region Meff6j2600
+  histo hns16eleRaw , "n s16eleRaw", 20, 0, 20, size(s16eleRaw)
+  histo hns16muoRaw , "n s16muoRaw", 20, 0, 20, size(s16muoRaw)
+  histo hns16bJetsOR , "n s16bJetsOR", 20, 0, 20, size(s16bJetsOR)
+  histo hns16eleForJetOR , "n s16eleForJetOR", 20, 0, 20, size(s16eleForJetOR)
+  histo hns16jetsNoE , "n s16jetsNoE", 20, 0, 20, size(s16jetsNoE)
+  histo hns16baseEle , "n s16baseEle", 20, 0, 20, size(s16baseEle)
+  histo hns16baseMuo , "n s16baseMuo", 20, 0, 20, size(s16baseMuo)
+  histo hns16cleanJets , "n s16cleanJets", 20, 0, 20, size(s16cleanJets)
+  histo hns16sigJets , "n s16sigJets", 20, 0, 20, size(s16sigJets)
+  select size(s16sigJets) >= 6
+  select size(s16baseEle) == 0
+  select size(s16baseMuo) == 0
+  select MET > 250
+  select pT(s16sigJets[0]) > 200
+  select pT(s16sigJets[4]) > 100
+  select pT(s16sigJets[5]) > 100
+  select dphi(s16sigJets[0], METLV[0]) > 0.4
+  select dphi(s16sigJets[1], METLV[0]) > 0.4
+  select dphi(s16sigJets[2], METLV[0]) > 0.4
+  select vDphiAll > 0.2
+  select MET / vMeff6 > 0.15
+  select vAplan > 0.08
+  select vMeffIncl > 2600
+
+region Meff2jB1600
+  histo hns16eleRaw , "n s16eleRaw", 20, 0, 20, size(s16eleRaw)
+  histo hns16muoRaw , "n s16muoRaw", 20, 0, 20, size(s16muoRaw)
+  histo hns16bJetsOR , "n s16bJetsOR", 20, 0, 20, size(s16bJetsOR)
+  histo hns16eleForJetOR , "n s16eleForJetOR", 20, 0, 20, size(s16eleForJetOR)
+  histo hns16jetsNoE , "n s16jetsNoE", 20, 0, 20, size(s16jetsNoE)
+  histo hns16baseEle , "n s16baseEle", 20, 0, 20, size(s16baseEle)
+  histo hns16baseMuo , "n s16baseMuo", 20, 0, 20, size(s16baseMuo)
+  histo hns16cleanJets , "n s16cleanJets", 20, 0, 20, size(s16cleanJets)
+  histo hns16sigJets , "n s16sigJets", 20, 0, 20, size(s16sigJets)
+  select size(s16sigJets) >= 1
+  select size(s16fatJets) >= 2
+  select size(s16baseEle) == 0
+  select size(s16baseMuo) == 0
+  select MET > 250
+  select pT(s16fatJets[0]) > 200
+  select pT(s16fatJets[1]) > 200
+  select m(s16fatJets[0]) [] 60 110
+  select m(s16fatJets[1]) [] 60 110
+  select dphi(s16sigJets[0], METLV[0]) > 0.6
+  select size(s16sigJets) < 2 or dphi(s16sigJets[1], METLV[0]) > 0.6
+  select size(s16sigJets) < 3 or dphi(s16sigJets[2], METLV[0]) > 0.6
+  select vDphiAll > 0.4
+  select vMetSig > 20
+  select vMeffIncl > 1600
+
+region Meff2jB2400
+  histo hns16eleRaw , "n s16eleRaw", 20, 0, 20, size(s16eleRaw)
+  histo hns16muoRaw , "n s16muoRaw", 20, 0, 20, size(s16muoRaw)
+  histo hns16bJetsOR , "n s16bJetsOR", 20, 0, 20, size(s16bJetsOR)
+  histo hns16eleForJetOR , "n s16eleForJetOR", 20, 0, 20, size(s16eleForJetOR)
+  histo hns16jetsNoE , "n s16jetsNoE", 20, 0, 20, size(s16jetsNoE)
+  histo hns16baseEle , "n s16baseEle", 20, 0, 20, size(s16baseEle)
+  histo hns16baseMuo , "n s16baseMuo", 20, 0, 20, size(s16baseMuo)
+  histo hns16cleanJets , "n s16cleanJets", 20, 0, 20, size(s16cleanJets)
+  histo hns16sigJets , "n s16sigJets", 20, 0, 20, size(s16sigJets)
+  select size(s16sigJets) >= 1
+  select size(s16fatJets) >= 2
+  select size(s16baseEle) == 0
+  select size(s16baseMuo) == 0
+  select MET > 250
+  select pT(s16fatJets[0]) > 200
+  select pT(s16fatJets[1]) > 200
+  select m(s16fatJets[0]) [] 60 110
+  select m(s16fatJets[1]) [] 60 110
+  select dphi(s16sigJets[0], METLV[0]) > 0.6
+  select size(s16sigJets) < 2 or dphi(s16sigJets[1], METLV[0]) > 0.6
+  select size(s16sigJets) < 3 or dphi(s16sigJets[2], METLV[0]) > 0.6
+  select vDphiAll > 0.4
+  select vMetSig > 20
+  select vMeffIncl > 2400
