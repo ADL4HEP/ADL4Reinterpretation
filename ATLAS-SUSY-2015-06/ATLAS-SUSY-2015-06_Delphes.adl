@@ -1,5 +1,5 @@
 # Simplified analysis ADL for ATLAS-SUSY-2015-06, for event input in the Delphes format.
-# Runs with CutLang, and is also the input of CutLang-Overlap-Analyzer (static overlap
+# Runs with CutLang, and is also the input of ADL-Overlap-Analyzer (static overlap
 # of signal regions)
 
 #info analysis
