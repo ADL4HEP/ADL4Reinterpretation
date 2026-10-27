@@ -1,3 +1,7 @@
+# Simplified analysis ADL for ATLAS-SUSY-2015-06, for event input in the Delphes format.
+# Runs with CutLang, and is also the input of CutLang-Overlap-Analyzer (static overlap
+# of signal regions)
+
 #info analysis
 #  experiment ATLAS
 #  title "Search for squarks and gluinos in final states with jets and missing transverse momentum at sqrt(s) = 13 TeV with the ATLAS detector"
