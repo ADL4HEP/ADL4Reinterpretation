@@ -1,0 +1,195 @@
+info analysis
+  title "ATLAS-SUSY-2015-06 (arXiv:1605.03814)"
+  experiment ATLAS
+  sqrtS 13.0
+
+object s15jets20
+  take JET
+  select pT(JET) > 20
+  select abs(eta(JET)) < 2.8
+
+object s15eleRaw
+  take ELE
+  select pT(ELE) > 10
+  select abs(eta(ELE)) < 2.47
+
+object s15muoRaw
+  take MUO
+  select pT(MUO) > 10
+  select abs(eta(MUO)) < 2.7
+
+object s15cleanJets
+  take s15jets20
+  select dR(s15jets20, allof(s15eleRaw)) > 0.2
+
+object s15baseEle
+  take s15eleRaw
+  select dR(s15eleRaw, allof(s15cleanJets)) > 0.4
+
+object s15baseMuo
+  take s15muoRaw
+  select dR(s15muoRaw, allof(s15cleanJets)) > 0.4
+
+object s15baseLeptons : Union(s15baseEle, s15baseMuo)
+
+object s15sigJets
+  take s15cleanJets
+  select pT(s15cleanJets) > 50
+
+define vHT = fHT(s15cleanJets)
+define vMetSig = MET / sqrt(vHT)
+define vMeffIncl = fHT(s15sigJets) + MET
+define vMeff4 = sum( pT(s15sigJets[0:3]) ) + MET
+define vMeff5 = sum( pT(s15sigJets[0:4]) ) + MET
+define vMeff6 = sum( pT(s15sigJets[0:5]) ) + MET
+define vDphiAll = min( dphi(s15sigJets[0:], METLV[0]) )
+define vAplan = fAplanarity(s15sigJets)
+
+region SR2jl
+  histo hns15eleRaw , "n s15eleRaw", 20, 0, 20, size(s15eleRaw)
+  histo hns15muoRaw , "n s15muoRaw", 20, 0, 20, size(s15muoRaw)
+  histo hns15cleanJets , "n s15cleanJets", 20, 0, 20, size(s15cleanJets)
+  histo hns15baseEle , "n s15baseEle", 20, 0, 20, size(s15baseEle)
+  histo hns15baseMuo , "n s15baseMuo", 20, 0, 20, size(s15baseMuo)
+  histo hns15sigJets , "n s15sigJets", 20, 0, 20, size(s15sigJets)
+  select size(s15sigJets) >= 2
+  select size(s15baseEle) == 0
+  select size(s15baseMuo) == 0
+  select MET > 200
+  select pT(s15sigJets[0]) > 200
+  select pT(s15sigJets[1]) > 200
+  select dphi(s15sigJets[0], METLV[0]) > 0.8
+  select dphi(s15sigJets[1], METLV[0]) > 0.8
+  select size(s15sigJets) < 3 or dphi(s15sigJets[2], METLV[0]) > 0.8
+  select vMetSig > 15
+  select vMeffIncl > 1200
+
+region SR2jm
+  histo hns15eleRaw , "n s15eleRaw", 20, 0, 20, size(s15eleRaw)
+  histo hns15muoRaw , "n s15muoRaw", 20, 0, 20, size(s15muoRaw)
+  histo hns15cleanJets , "n s15cleanJets", 20, 0, 20, size(s15cleanJets)
+  histo hns15baseEle , "n s15baseEle", 20, 0, 20, size(s15baseEle)
+  histo hns15baseMuo , "n s15baseMuo", 20, 0, 20, size(s15baseMuo)
+  histo hns15sigJets , "n s15sigJets", 20, 0, 20, size(s15sigJets)
+  select size(s15sigJets) >= 2
+  select size(s15baseEle) == 0
+  select size(s15baseMuo) == 0
+  select MET > 200
+  select pT(s15sigJets[0]) > 300
+  select pT(s15sigJets[1]) > 50
+  select dphi(s15sigJets[0], METLV[0]) > 0.4
+  select dphi(s15sigJets[1], METLV[0]) > 0.4
+  select size(s15sigJets) < 3 or dphi(s15sigJets[2], METLV[0]) > 0.4
+  select vMetSig > 15
+  select vMeffIncl > 1600
+
+region SR2jt
+  histo hns15eleRaw , "n s15eleRaw", 20, 0, 20, size(s15eleRaw)
+  histo hns15muoRaw , "n s15muoRaw", 20, 0, 20, size(s15muoRaw)
+  histo hns15cleanJets , "n s15cleanJets", 20, 0, 20, size(s15cleanJets)
+  histo hns15baseEle , "n s15baseEle", 20, 0, 20, size(s15baseEle)
+  histo hns15baseMuo , "n s15baseMuo", 20, 0, 20, size(s15baseMuo)
+  histo hns15sigJets , "n s15sigJets", 20, 0, 20, size(s15sigJets)
+  select size(s15sigJets) >= 2
+  select size(s15baseEle) == 0
+  select size(s15baseMuo) == 0
+  select MET > 200
+  select pT(s15sigJets[0]) > 200
+  select pT(s15sigJets[1]) > 200
+  select dphi(s15sigJets[0], METLV[0]) > 0.8
+  select dphi(s15sigJets[1], METLV[0]) > 0.8
+  select size(s15sigJets) < 3 or dphi(s15sigJets[2], METLV[0]) > 0.8
+  select vMetSig > 20
+  select vMeffIncl > 2000
+
+region SR4jt
+  histo hns15eleRaw , "n s15eleRaw", 20, 0, 20, size(s15eleRaw)
+  histo hns15muoRaw , "n s15muoRaw", 20, 0, 20, size(s15muoRaw)
+  histo hns15cleanJets , "n s15cleanJets", 20, 0, 20, size(s15cleanJets)
+  histo hns15baseEle , "n s15baseEle", 20, 0, 20, size(s15baseEle)
+  histo hns15baseMuo , "n s15baseMuo", 20, 0, 20, size(s15baseMuo)
+  histo hns15sigJets , "n s15sigJets", 20, 0, 20, size(s15sigJets)
+  select size(s15sigJets) >= 4
+  select size(s15baseEle) == 0
+  select size(s15baseMuo) == 0
+  select MET > 200
+  select pT(s15sigJets[0]) > 200
+  select pT(s15sigJets[1]) > 100
+  select pT(s15sigJets[2]) > 100
+  select pT(s15sigJets[3]) > 100
+  select dphi(s15sigJets[0], METLV[0]) > 0.4
+  select dphi(s15sigJets[1], METLV[0]) > 0.4
+  select dphi(s15sigJets[2], METLV[0]) > 0.4
+  select vDphiAll > 0.2
+  select vAplan > 0.04
+  select MET / vMeff4 > 0.2
+  select vMeffIncl > 2200
+
+region SR5j
+  histo hns15eleRaw , "n s15eleRaw", 20, 0, 20, size(s15eleRaw)
+  histo hns15muoRaw , "n s15muoRaw", 20, 0, 20, size(s15muoRaw)
+  histo hns15cleanJets , "n s15cleanJets", 20, 0, 20, size(s15cleanJets)
+  histo hns15baseEle , "n s15baseEle", 20, 0, 20, size(s15baseEle)
+  histo hns15baseMuo , "n s15baseMuo", 20, 0, 20, size(s15baseMuo)
+  histo hns15sigJets , "n s15sigJets", 20, 0, 20, size(s15sigJets)
+  select size(s15sigJets) >= 5
+  select size(s15baseEle) == 0
+  select size(s15baseMuo) == 0
+  select MET > 200
+  select pT(s15sigJets[0]) > 200
+  select pT(s15sigJets[1]) > 100
+  select pT(s15sigJets[2]) > 100
+  select pT(s15sigJets[3]) > 100
+  select dphi(s15sigJets[0], METLV[0]) > 0.4
+  select dphi(s15sigJets[1], METLV[0]) > 0.4
+  select dphi(s15sigJets[2], METLV[0]) > 0.4
+  select vDphiAll > 0.2
+  select vAplan > 0.04
+  select MET / vMeff5 > 0.25
+  select vMeffIncl > 1600
+
+region SR6jm
+  histo hns15eleRaw , "n s15eleRaw", 20, 0, 20, size(s15eleRaw)
+  histo hns15muoRaw , "n s15muoRaw", 20, 0, 20, size(s15muoRaw)
+  histo hns15cleanJets , "n s15cleanJets", 20, 0, 20, size(s15cleanJets)
+  histo hns15baseEle , "n s15baseEle", 20, 0, 20, size(s15baseEle)
+  histo hns15baseMuo , "n s15baseMuo", 20, 0, 20, size(s15baseMuo)
+  histo hns15sigJets , "n s15sigJets", 20, 0, 20, size(s15sigJets)
+  select size(s15sigJets) >= 6
+  select size(s15baseEle) == 0
+  select size(s15baseMuo) == 0
+  select MET > 200
+  select pT(s15sigJets[0]) > 200
+  select pT(s15sigJets[1]) > 100
+  select pT(s15sigJets[2]) > 100
+  select pT(s15sigJets[3]) > 100
+  select dphi(s15sigJets[0], METLV[0]) > 0.4
+  select dphi(s15sigJets[1], METLV[0]) > 0.4
+  select dphi(s15sigJets[2], METLV[0]) > 0.4
+  select vDphiAll > 0.2
+  select vAplan > 0.04
+  select MET / vMeff6 > 0.25
+  select vMeffIncl > 1600
+
+region SR6jt
+  histo hns15eleRaw , "n s15eleRaw", 20, 0, 20, size(s15eleRaw)
+  histo hns15muoRaw , "n s15muoRaw", 20, 0, 20, size(s15muoRaw)
+  histo hns15cleanJets , "n s15cleanJets", 20, 0, 20, size(s15cleanJets)
+  histo hns15baseEle , "n s15baseEle", 20, 0, 20, size(s15baseEle)
+  histo hns15baseMuo , "n s15baseMuo", 20, 0, 20, size(s15baseMuo)
+  histo hns15sigJets , "n s15sigJets", 20, 0, 20, size(s15sigJets)
+  select size(s15sigJets) >= 6
+  select size(s15baseEle) == 0
+  select size(s15baseMuo) == 0
+  select MET > 200
+  select pT(s15sigJets[0]) > 200
+  select pT(s15sigJets[1]) > 100
+  select pT(s15sigJets[2]) > 100
+  select pT(s15sigJets[3]) > 100
+  select dphi(s15sigJets[0], METLV[0]) > 0.4
+  select dphi(s15sigJets[1], METLV[0]) > 0.4
+  select dphi(s15sigJets[2], METLV[0]) > 0.4
+  select vDphiAll > 0.2
+  select vAplan > 0.04
+  select MET / vMeff6 > 0.2
+  select vMeffIncl > 2000
