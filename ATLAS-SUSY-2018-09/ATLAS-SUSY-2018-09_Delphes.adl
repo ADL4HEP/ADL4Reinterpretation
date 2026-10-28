@@ -12,6 +12,7 @@
 #  lumi 139
 #  arXiv 1909.08457
 #  doi https://doi.org/10.1007/JHEP06(2020)046
+#  authors Arpita Mondal, Ekin Yoruk
 
 object s1809jets20
   take JET
