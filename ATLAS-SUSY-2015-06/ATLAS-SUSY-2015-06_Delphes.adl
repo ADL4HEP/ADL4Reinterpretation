@@ -12,6 +12,7 @@
 #  arXiv 1605.03814
 #  hepdata https://www.hepdata.net/record/74353
 #  doi https://doi.org/10.1140/epjc/s10052-016-4184-8
+#  authors Ekin Yoruk
 
 object s15jets20
   take JET
