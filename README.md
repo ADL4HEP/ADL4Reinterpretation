@@ -69,6 +69,6 @@ The verdicts come from the corrected version of ADL-Overlap-Analyzer: github.com
 
 ## Reproducing
 ```
-python3 scripts/compute_overlap.py .     # correlations/ of every analysis and pair, from acceptance/  (≈ 10 min)
+python3 scripts/compute_overlap.py .     # correlations/ of every analysis and pair, from acceptance/  
 python3 scripts/make_figures.py .        # figures/
 ```
