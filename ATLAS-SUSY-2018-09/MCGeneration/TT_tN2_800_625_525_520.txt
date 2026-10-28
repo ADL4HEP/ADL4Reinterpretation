@@ -1,0 +1,6 @@
+import model MSSM_SLHA2
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+# MLM matching with 0 and 1 extra parton; stop decays by Pythia
+generate p p > t1 t1~ @0
+add process p p > t1 t1~ j @1
