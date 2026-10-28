@@ -19,6 +19,6 @@ One mass point per model: the benchmark for which ATLAS published a cutflow. Eff
 
 ## Result
 
-Cuts that do not depend on additional jets (preselection, Δφ, pT(j2), pT(j4), meff) agree with ATLAS within 1–3%. The 2-jet regions are 10–25% low (MET/√HT cut) and SR5j, SR6jm, SR6jt 21–46% high (jet multiplicity cut); MA5 deviates in the same direction in the 6-jet regions but less. The deviations follow the modelling of additional jets in our LO samples, not the selection.
+Cuts that do not depend on additional jets (preselection, Δφ, pT(j2), pT(j4), meff) agree with ATLAS within 1–3%. The 2-jet regions are 10–25% low (MET/√HT cut) and SR5j, SR6jm, SR6jt 21–46% high (jet multiplicity cut), MA5 deviates in the same direction in the 6-jet regions but less. The deviations follow the modelling of additional jets in our LO samples, not the selection.
 
 Error bars and ± values: statistical uncertainty of our Monte Carlo sample only (binomial for efficiencies, √N for yields); the uncertainties of the ATLAS cutflows and of the recasting tools are not included.
