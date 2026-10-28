@@ -1,0 +1,37 @@
+Cutflow comparison: ATLAS-SUSY-2018-22, gluino pair, g̃ → qq̄χ̃⁰₁, 2200 / 600 GeV
+Cumulative yields for 139 fb^-1. ATLAS: official cutflow as transcribed in the CheckMATE validation note;
+CL = ADL/CutLang, normalised to the ATLAS yield after event cleaning (ours) / preselection (CheckMATE).
+r = CL / ATLAS; CM = CheckMATE / ATLAS, normalised in the same way (CheckMATE uncertainties not shown).
+
+====== 4j1000
+cut                                           CL    ATLAS      r     CM
+Nj >= 4                            55.42 ±  0.78     53.5   1.04   1.02
+dphi(j1,2,3) > 0.4                 49.57 ±  0.74     44.7   1.11   1.02
+dphi(j>3) > 0.2                    41.35 ±  0.68     39.8   1.04   1.01
+pT(j4) > 100                       38.71 ±  0.65     35.3   1.10   0.99
+|eta(j1-4)| < 2.0                  35.71 ±  0.63     32.1   1.11   0.99
+aplanarity > 0.04                  24.57 ±  0.52     22.3   1.10   1.02
+MET/sqrt(HT) > 16                  13.92 ±  0.39     13.9   1.00   1.01
+meff > 1000                        13.92 ±  0.39     13.9   1.00   1.01
+
+====== 4j2200
+cut                                           CL    ATLAS      r     CM
+Nj >= 4                            55.42 ±  0.78     53.5   1.04   1.02
+dphi(j1,2,3) > 0.4                 49.57 ±  0.74     44.7   1.11   1.02
+dphi(j>3) > 0.2                    41.35 ±  0.68     39.8   1.04   1.01
+pT(j4) > 100                       38.71 ±  0.65     35.3   1.10   0.99
+|eta(j1-4)| < 2.0                  35.71 ±  0.63     32.1   1.11   0.99
+aplanarity > 0.04                  24.57 ±  0.52     22.3   1.10   1.02
+MET/sqrt(HT) > 16                  13.92 ±  0.39     13.9   1.00   1.01
+meff > 2200                        13.55 ±  0.39     13.6   1.00   1.01
+
+====== 4j3400
+cut                                           CL    ATLAS      r     CM
+Nj >= 4                            55.42 ±  0.78     53.5   1.04   1.02
+dphi(j1,2,3) > 0.4                 49.57 ±  0.74     44.7   1.11   1.02
+dphi(j>3) > 0.2                    41.35 ±  0.68     39.8   1.04   1.01
+pT(j4) > 100                       38.71 ±  0.65     35.3   1.10   0.99
+|eta(j1-4)| < 2.0                  35.71 ±  0.63     32.1   1.11   0.99
+aplanarity > 0.04                  24.57 ±  0.52     22.3   1.10   1.02
+MET/sqrt(HT) > 10                  20.57 ±  0.48     19.6   1.05   1.02
+meff > 3400                        12.53 ±  0.37     8.04   1.56   0.94

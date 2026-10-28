@@ -1,0 +1,46 @@
+Cutflow comparison: ATLAS-SUSY-2018-22, gluino pair, g̃ → qq̄′χ̃±₁, χ̃±₁ → Wχ̃⁰₁, 2200 / 1200 / 200 GeV
+Cumulative yields for 139 fb^-1. ATLAS: official cutflow as transcribed in the CheckMATE validation note;
+CL = ADL/CutLang, normalised to the ATLAS yield after event cleaning (ours) / preselection (CheckMATE).
+r = CL / ATLAS; CM = CheckMATE / ATLAS, normalised in the same way (CheckMATE uncertainties not shown).
+
+====== 5j1600
+cut                                           CL    ATLAS      r     CM
+Nj >= 5                            24.72 ±  0.42     24.2   1.02   1.03
+dphi(j1,2,3) > 0.4                 21.78 ±  0.39     20.4   1.07   1.02
+dphi(j>3) > 0.2                    16.92 ±  0.35     16.5   1.03   1.00
+pT(j1) > 600                       14.25 ±  0.32     13.1   1.09   1.00
+MET/sqrt(HT) > 16                   6.24 ±  0.21     6.38   0.98   0.97
+meff > 1600                         6.24 ±  0.21     6.38   0.98   0.97
+
+====== 6j1000
+cut                                           CL    ATLAS      r     CM
+Nj >= 6                            22.96 ±  0.40     21.7   1.06   1.04
+dphi(j1,2,3) > 0.4                 20.19 ±  0.38     18.1   1.12   1.04
+dphi(j>3) > 0.2                    15.52 ±  0.33     14.4   1.08   1.03
+pT(j6) > 75                        13.85 ±  0.31     12.3   1.13   1.03
+|eta(j1-6)| < 2.0                  12.09 ±  0.29     10.5   1.15   1.03
+aplanarity > 0.08                   6.80 ±  0.22     7.28   0.93   1.05
+MET/sqrt(HT) > 16                   3.02 ±  0.15     3.58   0.84   1.02
+meff > 1000                         3.02 ±  0.15     3.58   0.84   1.02
+
+====== 6j2200
+cut                                           CL    ATLAS      r     CM
+Nj >= 6                            22.96 ±  0.40     21.7   1.06   1.04
+dphi(j1,2,3) > 0.4                 20.19 ±  0.38     18.1   1.12   1.04
+dphi(j>3) > 0.2                    15.52 ±  0.33     14.4   1.08   1.03
+pT(j6) > 75                        13.85 ±  0.31     12.3   1.13   1.03
+|eta(j1-6)| < 2.0                  12.09 ±  0.29     10.5   1.15   1.03
+aplanarity > 0.08                   6.80 ±  0.22     7.28   0.93   1.05
+MET/sqrt(HT) > 16                   3.02 ±  0.15     3.58   0.84   1.02
+meff > 2200                         2.99 ±  0.15     3.57   0.84   1.02
+
+====== 6j3400
+cut                                           CL    ATLAS      r     CM
+Nj >= 6                            22.96 ±  0.40     21.7   1.06   1.04
+dphi(j1,2,3) > 0.4                 20.19 ±  0.38     18.1   1.12   1.04
+dphi(j>3) > 0.2                    15.52 ±  0.33     14.4   1.08   1.03
+pT(j6) > 75                        13.85 ±  0.31     12.3   1.13   1.03
+|eta(j1-6)| < 2.0                  12.09 ±  0.29     10.5   1.15   1.03
+aplanarity > 0.08                   6.80 ±  0.22     7.28   0.93   1.05
+MET/sqrt(HT) > 10                   5.17 ±  0.19     6.03   0.86   1.04
+meff > 3400                         3.53 ±  0.16     3.56   0.99   0.97

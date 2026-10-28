@@ -1,0 +1,30 @@
+Cutflow comparison: ATLAS-SUSY-2018-22, squark–antisquark (ũ, d̃, s̃, c̃; L and R), q̃ → qχ̃⁰₁, 1600 / 400 GeV
+Cumulative yields for 139 fb^-1. ATLAS: official cutflow as transcribed in the CheckMATE validation note;
+CL = ADL/CutLang, normalised to the ATLAS yield after event cleaning (ours) / preselection (CheckMATE).
+r = CL / ATLAS; CM = CheckMATE / ATLAS, normalised in the same way (CheckMATE uncertainties not shown).
+
+====== 2j1600
+cut                                           CL    ATLAS      r     CM
+dphi(j1,2,(3)) > 0.8              141.72 ±  2.23      136   1.04   1.01
+dphi(j>3) > 0.4                   133.40 ±  2.16      129   1.03   1.00
+pT(j2) > 250                      112.37 ±  1.99      111   1.01   1.00
+|eta(j1,2)| < 2.0                 110.02 ±  1.97      109   1.01   1.00
+MET/sqrt(HT) > 16                  85.41 ±  1.73     86.4   0.99   1.00
+meff > 1600                        81.59 ±  1.69     83.5   0.98   1.00
+
+====== 2j2200
+cut                                           CL    ATLAS      r     CM
+dphi(j1,2,(3)) > 0.4              163.49 ±  2.40      156   1.05   1.00
+dphi(j>3) > 0.2                   157.52 ±  2.35      151   1.04   1.00
+pT(j1) > 600                      116.16 ±  2.02      120   0.97   1.00
+MET/sqrt(HT) > 16                  89.48 ±  1.77     94.6   0.95   1.00
+meff > 2200                        66.74 ±  1.53     76.1   0.88   0.99
+
+====== 2j2800
+cut                                           CL    ATLAS      r     CM
+dphi(j1,2,(3)) > 0.8              141.72 ±  2.23      136   1.04   1.00
+dphi(j>3) > 0.4                   133.40 ±  2.16      129   1.03   1.00
+pT(j2) > 250                      112.37 ±  1.99      111   1.01   1.00
+|eta(j1,2)| < 1.2                  85.76 ±  1.74     82.3   1.04   1.01
+MET/sqrt(HT) > 16                  66.31 ±  1.53     64.6   1.03   1.02
+meff > 2800                        22.05 ±  0.88     29.1   0.76   0.92
