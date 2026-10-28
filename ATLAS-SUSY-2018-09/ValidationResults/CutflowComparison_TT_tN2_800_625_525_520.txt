@@ -1,0 +1,11 @@
+Cutflow comparison: ATLAS-SUSY-2018-09, stop pair, t̃₁ → tχ̃⁰₂, χ̃⁰₂ → W∓χ̃±₁, 800 / 625 / 525 (χ̃⁰₁ 520) GeV
+Cumulative yields for 139 fb^-1. ATLAS: official cutflow as transcribed in the CheckMATE validation note;
+CL = ADL/CutLang, normalised to the ATLAS yield after two same-charge leptons with pT > 20 GeV (trigger not emulated).
+r = CL / ATLAS; CM = CheckMATE / ATLAS, normalised in the same way (CheckMATE uncertainties not shown).
+
+====== Rpc3LSS1b
+cut                                           CL    ATLAS      r     CM
+>= 1 b-jet                        139.87 ±  8.42    134.1   1.04   1.01
+>= 3 same-charge leptons            7.09 ±  1.90     6.11   1.16   1.21
+veto 81 < m(e+-e+-) < 101           7.09 ±  1.90     5.21   1.36   1.32
+MET/meff > 0.14                     5.57 ±  1.68      3.9   1.43   1.55
