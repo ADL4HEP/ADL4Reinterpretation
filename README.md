@@ -63,7 +63,7 @@ For a combination the relevant matrix is that of the background mixture. It dete
 When two analyses use different data sets (3.2, 36.1 and 139 fb⁻¹, each containing the smaller ones), the count correlation is ℓκ with ℓ = √(L_small/L_large). See `pairwise/README.md`.
 
 ## Static verdicts
-The verdicts come from the corrected version of ADL-Overlap-Analyzer: github.com/BerkayA8/CutLang-Overlap-Analyzer.
+The verdicts come from the ADL-Overlap-Analyzer: github.com/BerkayA8/CutLang-Overlap-Analyzer.
 
 `verdicts.csv` lists one verdict per region pair, and `analyzer_output*.txt` contains the full analyzer output. In every sample, each SUBSET or SUPERSET verdict holds (n_ab equals the n of the smaller region) and each DISJOINT verdict holds (n_ab = 0).
 
