@@ -1,0 +1,17 @@
+import model sm
+define l+ = e+ mu+
+define l- = e- mu-
+# tops decayed inclusively by Pythia
+generate p p > t t~ z, z > l+ l-
+
+# run-card changes (all other entries: MadGraph 3.6.7 defaults; NNPDF2.3 LO, 13 TeV)
+# set nevents 12500
+# set ptj 0
+# set etaj -1
+# set drjj 0
+# set ptl 0
+# set etal -1
+# set drjl 0
+# set drll 0
+# set iseed <seed>
+# set use_syst False

@@ -1,0 +1,14 @@
+import model sm-no_b_mass
+define p = p b b~
+define j = j b b~
+define vv = w+ w- z
+generate p p > z vv, z > vl vl~, vv > j j
+
+# run-card changes (all other entries: MadGraph 3.6.7 defaults; NNPDF2.3 LO, 13 TeV)
+# set nevents 5000
+# set misset <met_min>     # parton-level MET (= Z pT): 150, 500, 900
+# set missetmax <met_max>  # 500, 900, -1
+# set cut_decays False
+# set drjj 0               # keep collimated V -> qq pairs
+# set iseed <seed>
+# set use_syst False

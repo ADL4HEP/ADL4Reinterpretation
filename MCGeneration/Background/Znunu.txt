@@ -1,0 +1,10 @@
+import model sm
+generate p p > z j, z > vl vl~
+
+# run-card changes (all other entries: MadGraph 3.6.7 defaults; NNPDF2.3 LO, 13 TeV)
+# set nevents 5000
+# set misset 150          # parton-level MET (= Z pT) > 150 GeV, every slice
+# set ptj <ptj_min>        # slice 1: 20 (inclusive), 2: 300, 3: 600, 4: 1000
+# set ptjmax <ptj_max>     # slices 2, 3: 600, 1000; slices 1, 4: -1 (none)
+# set iseed <seed>
+# set use_syst False

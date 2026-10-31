@@ -1,0 +1,20 @@
+import model sm
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm
+define vl~ = ve~ vm~
+# a same-charge e/mu pair is forced: W from the top + associated W, the other top hadronic
+generate p p > t t~ w+, (t > b w+, w+ > l+ vl), (t~ > b~ w-, w- > j j), (w+ > l+ vl)
+add process p p > t t~ w-, (t > b w+, w+ > j j), (t~ > b~ w-, w- > l- vl~), (w- > l- vl~)
+
+# run-card changes (all other entries: MadGraph 3.6.7 defaults; NNPDF2.3 LO, 13 TeV)
+# set nevents 12500
+# set ptj 0
+# set etaj -1
+# set drjj 0
+# set ptl 0
+# set etal -1
+# set drjl 0
+# set drll 0
+# set iseed <seed>
+# set use_syst False

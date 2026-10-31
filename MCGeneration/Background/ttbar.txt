@@ -1,0 +1,25 @@
+import model sm-no_b_mass
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+define jw = u u~ d d~ c c~ s s~
+generate p p > t t~, (t > b w+, w+ > l+ vl), (t~ > b~ w-, w- > jw jw)
+add process p p > t t~, (t > b w+, w+ > jw jw), (t~ > b~ w-, w- > l- vl~)
+add process p p > t t~, (t > b w+, w+ > l+ vl), (t~ > b~ w-, w- > l- vl~)
+
+# run-card changes (all other entries: MadGraph 3.6.7 defaults; NNPDF2.3 LO, 13 TeV)
+# set nevents 5000
+# set cut_decays True      # the MET cut acts on the decay products
+# set misset <met_min>     # see slices.csv
+# set missetmax <met_max>
+# set ihtmin 400           # slice 6 only
+# set ptj 0
+# set etaj -1
+# set drjj 0
+# set ptl 0
+# set etal -1
+# set drjl 0
+# set drll 0
+# set iseed <seed>
+# set use_syst False

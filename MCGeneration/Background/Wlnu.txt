@@ -1,0 +1,17 @@
+import model sm-no_b_mass
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+generate p p > l+ vl j
+add process p p > l- vl~ j
+
+# run-card changes (all other entries: MadGraph 3.6.7 defaults; NNPDF2.3 LO, 13 TeV)
+# set nevents 5000
+# set ptj <ptj_min>        # 150, 300, 600, 1000
+# set ptjmax <ptj_max>     # 300, 600, 1000, -1
+# set ptl 0
+# set etal -1
+# set drjl 0        # no lepton cuts: lost leptons are the ones that matter
+# set iseed <seed>
+# set use_syst False

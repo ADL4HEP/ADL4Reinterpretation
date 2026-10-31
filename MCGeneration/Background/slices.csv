@@ -1,0 +1,19 @@
+sample,slice,generator_cut_GeV,sigma_pb,events_generated,events_nonzero_weight,madgraph_seeds,pythia_seeds,pythia_card,event_weight_pb
+Znunu,1,"parton MET > 150, jet pT > 20 (inclusive)",28.22,20000,18634,1001-1004,2001-2004,Monash,sigma_slice / N_slice; 0 if LHE jet pT >= 300 (slices 2-4 cover it)
+Znunu,2,"parton MET > 150, jet pT 300-600",1.8065,20000,20000,2101-2104,2201-2204,Monash,sigma_slice / N_slice
+Znunu,3,"parton MET > 150, jet pT 600-1000",0.066545,20000,20000,3101-3104,3201-3204,Monash,sigma_slice / N_slice
+Znunu,4,"parton MET > 150, jet pT > 1000",0.0036845,20000,20000,4101-4104,4201-4204,Monash,sigma_slice / N_slice
+Wlnu,1,jet pT 150-300,112.475,20000,20000,9101-9104,9121-9124,Monash,sigma_slice / N_slice
+Wlnu,2,jet pT 300-600,7.47308,60000,60000,9201-9212,"9221-9224, 9265-9272",Monash,sigma_slice / N_slice
+Wlnu,3,jet pT 600-1000,0.278575,20000,20000,9301-9304,9321-9324,Monash,sigma_slice / N_slice
+Wlnu,4,jet pT > 1000,0.0157725,20000,20000,9401-9404,9421-9424,Monash,sigma_slice / N_slice
+ttbar,1,parton MET 100-300 (inclusive),41.745,20000,17183,6101-6104,"6121-6123, 6134",Monash,"sigma_slice / N_slice; 0 if parton MET >= 200, or MET < 200 and parton HT > 400 (slices 5, 6 cover it)"
+ttbar,6,parton MET 100-200 and parton HT > 400,3.275,40000,40000,6601-6608,6621-6628,Monash,sigma_slice / N_slice
+ttbar,5,parton MET 200-300,2.5235,60000,60000,6501-6512,6521-6532,Monash,sigma_slice / N_slice
+ttbar,2,parton MET 300-600,0.38605,20000,20000,6201-6204,6221-6224,Monash,sigma_slice / N_slice
+ttbar,3,parton MET > 600,0.00697,20000,20000,6301-6304,6321-6324,Monash,sigma_slice / N_slice
+ZV,1,parton MET 150-500,0.205,10000,10000,7101-7102,9101-9102,Monash,sigma_slice / N_slice
+ZV,2,parton MET 500-900,0.001846,10000,10000,7201-7202,9201-9202,Monash,sigma_slice / N_slice
+ZV,3,parton MET > 900,9.105e-05,10000,10000,7301-7302,9301-9302,Monash,sigma_slice / N_slice
+ttW_SS,0,none,0.010305,25000,25000,9601-9602,9621-9622,A14,sigma_slice / N_slice
+ttZ_ll,0,none,0.03939,25000,25000,9701-9702,9721-9722,A14,sigma_slice / N_slice
