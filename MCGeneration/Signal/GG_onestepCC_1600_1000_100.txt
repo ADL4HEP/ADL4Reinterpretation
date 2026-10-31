@@ -1,0 +1,5 @@
+import model MSSM_SLHA2
+# leading order, no extra parton; gluino decays by Pythia from the SLHA decay table
+generate p p > go go
+
+# run-card changes: nevents 5000, iseed <seed>, use_syst False
