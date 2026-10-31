@@ -1,0 +1,8 @@
+! Pythia 8.318: settings that differ from the defaults (ATLAS A14 tune)
+Main:numberOfEvents   = 5000
+Main:timesAllowErrors = 100
+Beams:frameType       = 4
+Beams:LHEF            = unweighted_events.lhe.gz
+Random:setSeed        = on
+Random:seed           = <seed>
+Tune:pp               = 21

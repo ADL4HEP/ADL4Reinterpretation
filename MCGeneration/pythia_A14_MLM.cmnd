@@ -1,0 +1,14 @@
+! Pythia 8.318: settings that differ from the defaults (ATLAS A14 tune, MLM matching)
+Main:numberOfEvents   = 5000
+Main:timesAllowErrors = 100
+Beams:frameType       = 4
+Beams:LHEF            = unweighted_events.lhe.gz
+Random:setSeed        = on
+Random:seed           = <seed>
+Tune:pp               = 21
+JetMatching:merge     = on
+JetMatching:setMad    = on
+JetMatching:scheme    = 1
+JetMatching:qCut      = 150.0
+JetMatching:nJetMax   = 1
+JetMatching:doShowerKt = off
