@@ -7,7 +7,7 @@ Zero leptons, Meff-based regions, 36.1 fb⁻¹. The ADL file is `ATLAS-SUSY-2016
 | Folder | Content |
 |---|---|
 | `acceptance/<sample>.csv.gz` | One row per event, for each of the 9 samples in `MCGeneration`. Columns: `sample`, `slice`, `event`, `weight` (pb for backgrounds, 1 for signals), then one 0/1 column per region (1 = the event passes the region). |
-| `correlations/<sample>.csv` | One row per region pair, for each of the 9 samples and the mixtures `mixture_0L`, `mixture_SS` and `mixture_all`. The columns are defined in the top-level README. |
+| `correlations/<sample>.csv` | One row per region pair, for each of the 9 samples and the mixtures `mixture_0L`, `mixture_SS` and `mixture_all`. The columns are defined in README. |
 | `static/verdicts.csv` | Static verdict of CutLang-Overlap-Analyzer for each region pair (EQUAL, SUBSET, SUPERSET, DISJOINT, OVERLAP). |
 | `static/analyzer_output.txt` | Full analyzer output of the comparison of the ADL file with itself. |
 | `figures/correlations_mixture_vs_signal.png` | Correlation ρ of all region pairs: `mixture_0L` on the left, `GG_onestepCC_1600_1000_100` on the right. |
