@@ -1,0 +1,11 @@
+region_a,region_b,n_a,n_b,n_ab,sigma_a,sigma_b,sigma_ab,kappa,kappa_err,rho,rho_err,jaccard,jaccard_err
+s1809Rpc2L0b,s1809Rpc2L1b,9,0,0,9,0,0,,,,,0,0
+s1809Rpc2L0b,s1809Rpc2L2b,9,0,0,9,0,0,,,,,0,0
+s1809Rpc2L0b,s1809Rpc3LSS1b,9,0,0,9,0,0,,,,,0,0
+s1809Rpc2L0b,s1809Rpv2L,9,23,9,9,23,9,0.625543,0.0915066,0.624825,0.091532,0.391304,0.109983
+s1809Rpc2L1b,s1809Rpc2L2b,0,0,0,0,0,0,,,,,,
+s1809Rpc2L1b,s1809Rpc3LSS1b,0,0,0,0,0,0,,,,,,
+s1809Rpc2L1b,s1809Rpv2L,0,23,0,0,23,0,,,,,0,0
+s1809Rpc2L2b,s1809Rpc3LSS1b,0,0,0,0,0,0,,,,,,
+s1809Rpc2L2b,s1809Rpv2L,0,23,0,0,23,0,,,,,0,0
+s1809Rpc3LSS1b,s1809Rpv2L,0,23,0,0,23,0,,,,,0,0
