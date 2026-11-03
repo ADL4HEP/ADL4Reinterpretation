@@ -1,0 +1,166 @@
+  Parser: C++ (adl_to_json)
+  Loading: main:ATLAS-SUSY-2018-09/ATLAS-SUSY-2018-09_Delphes.adl
+    objects: ['s1809jets20', 's1809eleRaw', 's1809muoRaw', 's1809bJetsOR', 's1809eleForJetOR', 's1809jetsNoE', 's1809baseEle', 's1809baseMuo', 's1809cleanJets', 's1809sigEle', 's1809sigLeptons', 's1809lep20', 's1809lepPos', 's1809lepNeg', 's1809elePos', 's1809eleNeg', 's1809bJets', 's1809jets25', 's1809jets40']
+    defines: ['vmeff']
+    regions: ['s1809Rpv2L', 's1809Rpc2L0b', 's1809Rpc2L1b', 's1809Rpc2L2b', 's1809Rpc3LSS1b']
+  Loading: main:ATLAS-SUSY-2018-09/ATLAS-SUSY-2018-09_Delphes.adl
+    objects: ['s1809jets20', 's1809eleRaw', 's1809muoRaw', 's1809bJetsOR', 's1809eleForJetOR', 's1809jetsNoE', 's1809baseEle', 's1809baseMuo', 's1809cleanJets', 's1809sigEle', 's1809sigLeptons', 's1809lep20', 's1809lepPos', 's1809lepNeg', 's1809elePos', 's1809eleNeg', 's1809bJets', 's1809jets25', 's1809jets40']
+    defines: ['vmeff']
+    regions: ['s1809Rpv2L', 's1809Rpc2L0b', 's1809Rpc2L1b', 's1809Rpc2L2b', 's1809Rpc3LSS1b']
+
+════════════════════════════════════════════════════════════════════════════
+  ATLAS-SUSY-2018-09_Delphes.adl  ↔  ATLAS-SUSY-2018-09_Delphes.adl
+  Overall: ✓  DISJOINT
+════════════════════════════════════════════════════════════════════════════
+
+  Object Definitions
+────────────────────────────────────────────────────────────────────────────
+  s1809jets20 (JET)  ↔  s1809jets20 (JET)  [STRUCT MATCH]  =  EQUAL
+  s1809jets20 (JET)  ↔  s1809bJetsOR (JET)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809jets20 (JET)  ↔  s1809jetsNoE (JET)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809jets20 (JET)  ↔  s1809cleanJets (JET)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809jets20 (JET)  ↔  s1809bJets (JET)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809jets20 (JET)  ↔  s1809jets25 (JET)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809jets20 (JET)  ↔  s1809jets40 (JET)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809eleRaw (ELE)  ↔  s1809eleRaw (ELE)  [STRUCT MATCH]  =  EQUAL
+  s1809eleRaw (ELE)  ↔  s1809eleForJetOR (ELE)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809eleRaw (ELE)  ↔  s1809baseEle (ELE)  [STRUCT MATCH]  =  EQUAL
+  s1809eleRaw (ELE)  ↔  s1809sigEle (ELE)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809eleRaw (ELE)  ↔  s1809elePos (ELE)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809eleRaw (ELE)  ↔  s1809eleNeg (ELE)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809muoRaw (MUO)  ↔  s1809muoRaw (MUO)  [STRUCT MATCH]  =  EQUAL
+  s1809muoRaw (MUO)  ↔  s1809baseMuo (MUO)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809muoRaw (MUO)  ↔  s1809sigLeptons (MUO)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809muoRaw (MUO)  ↔  s1809lep20 (MUO)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809muoRaw (MUO)  ↔  s1809lepPos (MUO)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809muoRaw (MUO)  ↔  s1809lepNeg (MUO)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809bJetsOR (JET)  ↔  s1809jets20 (JET)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809bJetsOR (JET)  ↔  s1809bJetsOR (JET)  [STRUCT MATCH]  =  EQUAL
+  s1809bJetsOR (JET)  ↔  s1809jetsNoE (JET)  [STRUCT MATCH]  ⚠  OVERLAP
+  s1809bJetsOR (JET)  ↔  s1809cleanJets (JET)  [STRUCT MATCH]  ⚠  OVERLAP
+  s1809bJetsOR (JET)  ↔  s1809bJets (JET)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809bJetsOR (JET)  ↔  s1809jets25 (JET)  [STRUCT MATCH]  ⚠  OVERLAP
+  s1809bJetsOR (JET)  ↔  s1809jets40 (JET)  [STRUCT MATCH]  ⚠  OVERLAP
+  s1809eleForJetOR (ELE)  ↔  s1809eleRaw (ELE)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809eleForJetOR (ELE)  ↔  s1809eleForJetOR (ELE)  [STRUCT MATCH]  =  EQUAL
+  s1809eleForJetOR (ELE)  ↔  s1809baseEle (ELE)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809eleForJetOR (ELE)  ↔  s1809sigEle (ELE)  [STRUCT MATCH]  ⚠  OVERLAP
+  s1809eleForJetOR (ELE)  ↔  s1809elePos (ELE)  [STRUCT MATCH]  ⚠  OVERLAP
+  s1809eleForJetOR (ELE)  ↔  s1809eleNeg (ELE)  [STRUCT MATCH]  ⚠  OVERLAP
+  s1809jetsNoE (JET)  ↔  s1809jets20 (JET)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809jetsNoE (JET)  ↔  s1809bJetsOR (JET)  [STRUCT MATCH]  ⚠  OVERLAP
+  s1809jetsNoE (JET)  ↔  s1809jetsNoE (JET)  [STRUCT MATCH]  =  EQUAL
+  s1809jetsNoE (JET)  ↔  s1809cleanJets (JET)  [STRUCT MATCH]  =  EQUAL
+  s1809jetsNoE (JET)  ↔  s1809bJets (JET)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809jetsNoE (JET)  ↔  s1809jets25 (JET)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809jetsNoE (JET)  ↔  s1809jets40 (JET)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809baseEle (ELE)  ↔  s1809eleRaw (ELE)  [STRUCT MATCH]  =  EQUAL
+  s1809baseEle (ELE)  ↔  s1809eleForJetOR (ELE)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809baseEle (ELE)  ↔  s1809baseEle (ELE)  [STRUCT MATCH]  =  EQUAL
+  s1809baseEle (ELE)  ↔  s1809sigEle (ELE)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809baseEle (ELE)  ↔  s1809elePos (ELE)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809baseEle (ELE)  ↔  s1809eleNeg (ELE)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809baseMuo (MUO)  ↔  s1809muoRaw (MUO)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809baseMuo (MUO)  ↔  s1809baseMuo (MUO)  [STRUCT MATCH]  =  EQUAL
+  s1809baseMuo (MUO)  ↔  s1809sigLeptons (MUO)  [STRUCT MATCH]  =  EQUAL
+  s1809baseMuo (MUO)  ↔  s1809lep20 (MUO)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809baseMuo (MUO)  ↔  s1809lepPos (MUO)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809baseMuo (MUO)  ↔  s1809lepNeg (MUO)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809cleanJets (JET)  ↔  s1809jets20 (JET)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809cleanJets (JET)  ↔  s1809bJetsOR (JET)  [STRUCT MATCH]  ⚠  OVERLAP
+  s1809cleanJets (JET)  ↔  s1809jetsNoE (JET)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809cleanJets (JET)  ↔  s1809cleanJets (JET)  [STRUCT MATCH]  =  EQUAL
+  s1809cleanJets (JET)  ↔  s1809bJets (JET)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809cleanJets (JET)  ↔  s1809jets25 (JET)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809cleanJets (JET)  ↔  s1809jets40 (JET)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809sigEle (ELE)  ↔  s1809eleRaw (ELE)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809sigEle (ELE)  ↔  s1809eleForJetOR (ELE)  [STRUCT MATCH]  ⚠  OVERLAP
+  s1809sigEle (ELE)  ↔  s1809baseEle (ELE)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809sigEle (ELE)  ↔  s1809sigEle (ELE)  [STRUCT MATCH]  =  EQUAL
+  s1809sigEle (ELE)  ↔  s1809elePos (ELE)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809sigEle (ELE)  ↔  s1809eleNeg (ELE)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809sigLeptons (MUO)  ↔  s1809muoRaw (MUO)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809sigLeptons (MUO)  ↔  s1809baseMuo (MUO)  [STRUCT MATCH]  =  EQUAL
+  s1809sigLeptons (MUO)  ↔  s1809sigLeptons (MUO)  [STRUCT MATCH]  =  EQUAL
+  s1809sigLeptons (MUO)  ↔  s1809lep20 (MUO)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809sigLeptons (MUO)  ↔  s1809lepPos (MUO)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809sigLeptons (MUO)  ↔  s1809lepNeg (MUO)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809lep20 (MUO)  ↔  s1809muoRaw (MUO)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809lep20 (MUO)  ↔  s1809baseMuo (MUO)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809lep20 (MUO)  ↔  s1809sigLeptons (MUO)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809lep20 (MUO)  ↔  s1809lep20 (MUO)  [STRUCT MATCH]  =  EQUAL
+  s1809lep20 (MUO)  ↔  s1809lepPos (MUO)  [STRUCT MATCH]  ⚠  OVERLAP
+  s1809lep20 (MUO)  ↔  s1809lepNeg (MUO)  [STRUCT MATCH]  ⚠  OVERLAP
+  s1809lepPos (MUO)  ↔  s1809muoRaw (MUO)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809lepPos (MUO)  ↔  s1809baseMuo (MUO)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809lepPos (MUO)  ↔  s1809sigLeptons (MUO)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809lepPos (MUO)  ↔  s1809lep20 (MUO)  [STRUCT MATCH]  ⚠  OVERLAP
+  s1809lepPos (MUO)  ↔  s1809lepPos (MUO)  [STRUCT MATCH]  =  EQUAL
+  s1809lepPos (MUO)  ↔  s1809lepNeg (MUO)  [STRUCT MATCH]  ✓  DISJOINT
+  s1809lepNeg (MUO)  ↔  s1809muoRaw (MUO)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809lepNeg (MUO)  ↔  s1809baseMuo (MUO)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809lepNeg (MUO)  ↔  s1809sigLeptons (MUO)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809lepNeg (MUO)  ↔  s1809lep20 (MUO)  [STRUCT MATCH]  ⚠  OVERLAP
+  s1809lepNeg (MUO)  ↔  s1809lepPos (MUO)  [STRUCT MATCH]  ✓  DISJOINT
+  s1809lepNeg (MUO)  ↔  s1809lepNeg (MUO)  [STRUCT MATCH]  =  EQUAL
+  s1809elePos (ELE)  ↔  s1809eleRaw (ELE)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809elePos (ELE)  ↔  s1809eleForJetOR (ELE)  [STRUCT MATCH]  ⚠  OVERLAP
+  s1809elePos (ELE)  ↔  s1809baseEle (ELE)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809elePos (ELE)  ↔  s1809sigEle (ELE)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809elePos (ELE)  ↔  s1809elePos (ELE)  [STRUCT MATCH]  =  EQUAL
+  s1809elePos (ELE)  ↔  s1809eleNeg (ELE)  [STRUCT MATCH]  ✓  DISJOINT
+  s1809eleNeg (ELE)  ↔  s1809eleRaw (ELE)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809eleNeg (ELE)  ↔  s1809eleForJetOR (ELE)  [STRUCT MATCH]  ⚠  OVERLAP
+  s1809eleNeg (ELE)  ↔  s1809baseEle (ELE)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809eleNeg (ELE)  ↔  s1809sigEle (ELE)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809eleNeg (ELE)  ↔  s1809elePos (ELE)  [STRUCT MATCH]  ✓  DISJOINT
+  s1809eleNeg (ELE)  ↔  s1809eleNeg (ELE)  [STRUCT MATCH]  =  EQUAL
+  s1809bJets (JET)  ↔  s1809jets20 (JET)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809bJets (JET)  ↔  s1809bJetsOR (JET)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809bJets (JET)  ↔  s1809jetsNoE (JET)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809bJets (JET)  ↔  s1809cleanJets (JET)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809bJets (JET)  ↔  s1809bJets (JET)  [STRUCT MATCH]  =  EQUAL
+  s1809bJets (JET)  ↔  s1809jets25 (JET)  [STRUCT MATCH]  ⚠  OVERLAP
+  s1809bJets (JET)  ↔  s1809jets40 (JET)  [STRUCT MATCH]  ⚠  OVERLAP
+  s1809jets25 (JET)  ↔  s1809jets20 (JET)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809jets25 (JET)  ↔  s1809bJetsOR (JET)  [STRUCT MATCH]  ⚠  OVERLAP
+  s1809jets25 (JET)  ↔  s1809jetsNoE (JET)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809jets25 (JET)  ↔  s1809cleanJets (JET)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809jets25 (JET)  ↔  s1809bJets (JET)  [STRUCT MATCH]  ⚠  OVERLAP
+  s1809jets25 (JET)  ↔  s1809jets25 (JET)  [STRUCT MATCH]  =  EQUAL
+  s1809jets25 (JET)  ↔  s1809jets40 (JET)  [STRUCT MATCH]  ⊇  SUPERSET (A⊇B)
+  s1809jets40 (JET)  ↔  s1809jets20 (JET)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809jets40 (JET)  ↔  s1809bJetsOR (JET)  [STRUCT MATCH]  ⚠  OVERLAP
+  s1809jets40 (JET)  ↔  s1809jetsNoE (JET)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809jets40 (JET)  ↔  s1809cleanJets (JET)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809jets40 (JET)  ↔  s1809bJets (JET)  [STRUCT MATCH]  ⚠  OVERLAP
+  s1809jets40 (JET)  ↔  s1809jets25 (JET)  [STRUCT MATCH]  ⊆  SUBSET (A⊆B)
+  s1809jets40 (JET)  ↔  s1809jets40 (JET)  [STRUCT MATCH]  =  EQUAL
+
+  Region Pairs
+────────────────────────────────────────────────────────────────────────────
+  s1809Rpv2L  ↔  s1809Rpc2L0b    ⚠  OVERLAP    [JET, MET, MUO]
+  s1809Rpv2L  ↔  s1809Rpc2L1b    ⚠  OVERLAP    [JET, MET, MUO]
+  s1809Rpv2L  ↔  s1809Rpc2L2b    ⚠  OVERLAP    [JET, MET, MUO]
+  s1809Rpv2L  ↔  s1809Rpc3LSS1b    ⚠  OVERLAP    [JET, MET, MUO]
+  s1809Rpc2L0b  ↔  s1809Rpv2L    ⚠  OVERLAP    [JET, MET, MUO]
+  s1809Rpc2L1b  ↔  s1809Rpv2L    ⚠  OVERLAP    [JET, MET, MUO]
+  s1809Rpc2L1b  ↔  s1809Rpc2L2b    ⚠  OVERLAP    [JET, MET, MUO]
+  s1809Rpc2L1b  ↔  s1809Rpc3LSS1b    ⚠  OVERLAP    [JET, MET, MUO]
+  s1809Rpc2L2b  ↔  s1809Rpv2L    ⚠  OVERLAP    [JET, MET, MUO]
+  s1809Rpc2L2b  ↔  s1809Rpc2L1b    ⚠  OVERLAP    [JET, MET, MUO]
+  s1809Rpc2L2b  ↔  s1809Rpc3LSS1b    ⚠  OVERLAP    [JET, MET, MUO]
+  s1809Rpc3LSS1b  ↔  s1809Rpv2L    ⚠  OVERLAP    [JET, MET, MUO]
+  s1809Rpc3LSS1b  ↔  s1809Rpc2L1b    ⚠  OVERLAP    [JET, MET, MUO]
+  s1809Rpc3LSS1b  ↔  s1809Rpc2L2b    ⚠  OVERLAP    [JET, MET, MUO]
+  s1809Rpv2L  ↔  s1809Rpv2L    =  EQUAL    [JET, MET, MUO]
+  s1809Rpc2L0b  ↔  s1809Rpc2L0b    =  EQUAL    [JET, MET, MUO]
+  s1809Rpc2L1b  ↔  s1809Rpc2L1b    =  EQUAL    [JET, MET, MUO]
+  s1809Rpc2L2b  ↔  s1809Rpc2L2b    =  EQUAL    [JET, MET, MUO]
+  s1809Rpc3LSS1b  ↔  s1809Rpc3LSS1b    =  EQUAL    [ELE, JET, MET, MUO]
+  s1809Rpc2L0b  ↔  s1809Rpc2L1b    ✓  DISJOINT    [JET, MET, MUO]
+  s1809Rpc2L0b  ↔  s1809Rpc2L2b    ✓  DISJOINT    [JET, MET, MUO]
+  s1809Rpc2L0b  ↔  s1809Rpc3LSS1b    ✓  DISJOINT    [JET, MET, MUO]
+  s1809Rpc2L1b  ↔  s1809Rpc2L0b    ✓  DISJOINT    [JET, MET, MUO]
+  s1809Rpc2L2b  ↔  s1809Rpc2L0b    ✓  DISJOINT    [JET, MET, MUO]
+  s1809Rpc3LSS1b  ↔  s1809Rpc2L0b    ✓  DISJOINT    [JET, MET, MUO]
