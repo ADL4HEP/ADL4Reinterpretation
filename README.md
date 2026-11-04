@@ -19,9 +19,4 @@ The repository is organized into three branches:
 
 [https://github.com/unelg/CutLang](https://github.com/unelg/CutLang)
 
----
-
-## **ADL Overlap Analyzer Repository**
-
-[https://github.com/BerkayA8/CutLang-Overlap-Analyzer](https://github.com/BerkayA8/CutLang-Overlap-Analyzer)
 
